@@ -8,6 +8,7 @@ class DatetimeWebComponent extends HTMLElement {
   // Date representation of the value
   _date: Date | null = new Date()
 
+  // Function to handle document click, bound to this
   _bindedHandleDocumentClick = this._handleDocumentClick.bind(this)
 
   constructor() {
