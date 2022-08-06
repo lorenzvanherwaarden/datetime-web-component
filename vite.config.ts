@@ -1,4 +1,4 @@
-const path = require('path')
+import path from 'path'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
@@ -6,10 +6,10 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'src/main.ts'),
       name: 'datetime-webcomponent',
-      fileName: format => `datetime-webcomponent.${format}.js`
+      fileName: (format) => `datetime-webcomponent.${format}.js`,
     },
     rollupOptions: {
-      output: {}
-    }
-  } 
+      output: {},
+    },
+  },
 })
