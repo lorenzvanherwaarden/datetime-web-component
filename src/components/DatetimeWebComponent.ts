@@ -1,12 +1,24 @@
 import { computePosition, offset, shift } from '@floating-ui/dom'
+import Months from './constants/Months'
+import Weekdays from './constants/Weekdays'
+import type CellEvent from './events/CellEvent'
+import DatetimeEvent from './events/DatetimeEvent'
 import style from './style'
+import clearChildren from './utils/clearChildren'
+import createCell from './utils/createCell'
+import createWeekdays from './utils/createWeekdays'
+import getDaysInMonth from './utils/getDaysInMonths'
 
 class DatetimeWebComponent extends HTMLElement {
-  // Reference element to position dropdown to
-  _refElement?: HTMLElement
-
   // Date representation of the value
   _date: Date | null = new Date()
+
+  _tempYear?: number
+
+  _tempMonthIndex?: number
+
+  // Reference element to position dropdown to
+  _refElement?: HTMLElement
 
   // Function to handle document click, bound to this
   _bindedHandleDocumentClick = this._handleDocumentClick.bind(this)
@@ -22,6 +34,8 @@ class DatetimeWebComponent extends HTMLElement {
     this.hidden = true
     this._upgradeProperty('hidden')
     document.addEventListener('click', this._bindedHandleDocumentClick)
+    this.shadowRoot!.addEventListener('cell-event', this._handleDay.bind(this))
+    this._setupValue()
     this._render()
   }
 
@@ -32,7 +46,7 @@ class DatetimeWebComponent extends HTMLElement {
       this.removeAttribute('value')
     }
 
-    this._date = this.value ? new Date(this.value) : null
+    this._setupValue()
     this._render()
   }
 
@@ -59,10 +73,35 @@ class DatetimeWebComponent extends HTMLElement {
     this._position()
   }
 
+  get _tempMonth(): string | null {
+    return this._tempMonthIndex ? Months[this._tempMonthIndex] : null
+  }
+
+  get _daysInMonth(): number {
+    return getDaysInMonth(this._tempYear!, this._tempMonthIndex!)
+  }
+
+  get _monthDayCells(): HTMLElement[] {
+    return Array.from({ length: this._daysInMonth }, (_, idx) => idx + 1).map(
+      (number) =>
+        createCell(number.toString(), { isSelected: number === this._day })
+    )
+  }
+
+  get _day(): number {
+    return this._date!.getDate()
+  }
+
   _render() {
-    const span = document.createElement('span')
-    span.textContent = this.value
-    this.shadowRoot!.appendChild(span)
+    clearChildren(this.shadowRoot!)
+    this.shadowRoot!.appendChild(createWeekdays(Weekdays))
+    this._monthDayCells.forEach((cell) => this.shadowRoot!.appendChild(cell))
+  }
+
+  _setupValue() {
+    this._date = this.value ? new Date(this.value) : null
+    this._tempMonthIndex = this._date?.getMonth()
+    this._tempYear = this._date?.getFullYear()
   }
 
   _position() {
@@ -75,6 +114,15 @@ class DatetimeWebComponent extends HTMLElement {
         top: `${y}px`,
       })
     )
+  }
+
+  _emit() {
+    this.dispatchEvent(new DatetimeEvent(this._date!.toString(), this._date!))
+  }
+
+  _handleDay(event: CellEvent) {
+    this._date?.setDate(event.day)
+    this._emit()
   }
 
   _handleRefClick() {
@@ -97,6 +145,7 @@ class DatetimeWebComponent extends HTMLElement {
     if (this.hasOwnProperty(prop)) {
       let value = this[prop as keyof DatetimeWebComponent]
       delete this[prop as keyof DatetimeWebComponent]
+      // @ts-ignore
       this[prop] = value // TODO: prop should only be strings of setters of this class
     }
   }

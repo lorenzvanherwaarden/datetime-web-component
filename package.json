@@ -11,8 +11,7 @@
     ".": {
       "import": "./dist/datetime-web-component.es.js",
       "require": "./dist/datetime-web-component.umd.js"
-    },
-    "./style": "./dist/style.css"
+    }
   },
   "scripts": {
     "dev": "vite",
