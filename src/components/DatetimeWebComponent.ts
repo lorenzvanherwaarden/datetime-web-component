@@ -6,8 +6,11 @@ import DatetimeEvent from './events/DatetimeEvent'
 import style from './style'
 import clearChildren from './utils/clearChildren'
 import createCell from './utils/createCell'
+import createHeader from './utils/createHeader'
 import createWeekdays from './utils/createWeekdays'
+import getDayOfWeek from './utils/getDayOfWeek'
 import getDaysInMonth from './utils/getDaysInMonths'
+import getFirstDayOfMonth from './utils/getFirstDayOfMonth'
 
 class DatetimeWebComponent extends HTMLElement {
   // Date representation of the value
@@ -88,13 +91,28 @@ class DatetimeWebComponent extends HTMLElement {
     )
   }
 
+  get _offset(): number {
+    const firstDayOfMonth = getFirstDayOfMonth(
+      this._tempYear!,
+      this._tempMonthIndex!
+    )
+    const dayOfWeek = getDayOfWeek(firstDayOfMonth)
+    return dayOfWeek - 1
+  }
+
   get _day(): number {
     return this._date!.getDate()
   }
 
   _render() {
     clearChildren(this.shadowRoot!)
+    this.shadowRoot!.appendChild(
+      createHeader(this._tempYear!, this._tempMonthIndex!)
+    )
     this.shadowRoot!.appendChild(createWeekdays(Weekdays))
+    for (let i = 0; i < this._offset; i++) {
+      this.shadowRoot!.appendChild(createCell(''))
+    }
     this._monthDayCells.forEach((cell) => this.shadowRoot!.appendChild(cell))
   }
 

@@ -3,7 +3,7 @@ class DatetimeEvent extends Event {
   date: Date
 
   constructor(value: string, date: Date) {
-    super('value')
+    super('input')
     this.value = value
     this.date = date
   }

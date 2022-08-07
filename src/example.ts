@@ -12,7 +12,7 @@ input.value = datetimeWebComponent.value || ''
 // Set refElement
 datetimeWebComponent.refElement = input
 
-datetimeWebComponent.addEventListener('value', (event: DatetimeEvent) => {
+datetimeWebComponent.addEventListener('input', (event: DatetimeEvent) => {
   datetimeWebComponent.value = event.value
   input.value = event.value
 })
