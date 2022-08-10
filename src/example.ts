@@ -15,6 +15,7 @@ datetimeWebComponent.refElement = input
 datetimeWebComponent.addEventListener('input', (event: DatetimeEvent) => {
   datetimeWebComponent.value = event.value
   input.value = event.value
+  console.log(event.value)
 })
 
 // datetimeWebComponent.value = '2021-01-05 12:43:23'

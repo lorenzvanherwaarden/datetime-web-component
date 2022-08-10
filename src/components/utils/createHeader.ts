@@ -1,5 +1,5 @@
 import Months from '../constants/Months'
-import ArrowEvent from '../events/ArrowEvent'
+import MonthYearEvent from '../events/MonthYearEvent'
 
 function createSemanticButton(label: string, isLarge: boolean = false) {
   const button = document.createElement('button')
@@ -12,10 +12,14 @@ function createSemanticButton(label: string, isLarge: boolean = false) {
   return button
 }
 
-function createArrowButton(label: string, newMonthIndex: number) {
+function createArrowButton(
+  label: string,
+  newYear: number,
+  newMonthIndex: number
+) {
   const button = createSemanticButton(label, true)
   button.addEventListener('click', () => {
-    button.dispatchEvent(new ArrowEvent(newMonthIndex))
+    button.dispatchEvent(new MonthYearEvent(newYear, newMonthIndex))
   })
 
   return button
@@ -34,13 +38,17 @@ function createMonthYearSelector(year: number, month: string) {
 function createHeader(year: number, monthIndex: number) {
   const container = document.createElement('div')
   container.className = 'header'
+  const isFirstMonth = monthIndex === 0
+  const isLastMonth = monthIndex === 11
   const leftButton = createArrowButton(
     '←',
-    monthIndex === 0 ? 11 : monthIndex - 1
+    isFirstMonth ? year - 1 : year,
+    isFirstMonth ? 11 : monthIndex - 1
   )
   const rightButton = createArrowButton(
     '→',
-    monthIndex === 11 ? 0 : monthIndex + 1
+    isLastMonth ? year + 1 : year,
+    isLastMonth ? 0 : monthIndex + 1
   )
   container.appendChild(leftButton)
   container.appendChild(createMonthYearSelector(year, Months[monthIndex]))

@@ -81,7 +81,7 @@ const css = `
   border: none;
   cursor: pointer;
   outline: inherit;
-  padding: 4px 8px;
+  padding: 4px;
 }
 
 .semantic-button:hover {
@@ -90,6 +90,7 @@ const css = `
 
 .semantic-button--large {
   font-size: calc(var(--font-size) + 2px);
+  padding: 4px 8px;
 }
 `
 

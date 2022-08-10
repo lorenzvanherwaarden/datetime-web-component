@@ -3,6 +3,7 @@ import Months from './constants/Months'
 import Weekdays from './constants/Weekdays'
 import type CellEvent from './events/CellEvent'
 import DatetimeEvent from './events/DatetimeEvent'
+import MonthYearEvent from './events/MonthYearEvent'
 import style from './style'
 import clearChildren from './utils/clearChildren'
 import createCell from './utils/createCell'
@@ -11,13 +12,16 @@ import createWeekdays from './utils/createWeekdays'
 import getDayOfWeek from './utils/getDayOfWeek'
 import getDaysInMonth from './utils/getDaysInMonths'
 import getFirstDayOfMonth from './utils/getFirstDayOfMonth'
+import parseUTCDate from './utils/parseUTCDate'
 
 class DatetimeWebComponent extends HTMLElement {
   // Date representation of the value
-  _date: Date | null = new Date()
+  _date?: Date
 
+  // Year of sliding window
   _tempYear?: number
 
+  // Month of sliding window
   _tempMonthIndex?: number
 
   // Reference element to position dropdown to
@@ -36,8 +40,14 @@ class DatetimeWebComponent extends HTMLElement {
     this._upgradeProperty('value')
     this.hidden = true
     this._upgradeProperty('hidden')
+
     document.addEventListener('click', this._bindedHandleDocumentClick)
     this.shadowRoot!.addEventListener('cell-event', this._handleDay.bind(this))
+    this.shadowRoot!.addEventListener(
+      'update-month-year',
+      this._handleMonthYear.bind(this)
+    )
+
     this._setupValue()
     this._render()
   }
@@ -58,8 +68,7 @@ class DatetimeWebComponent extends HTMLElement {
   }
 
   set hidden(value: boolean) {
-    const isHidden = Boolean(value)
-    if (isHidden) {
+    if (value) {
       this.setAttribute('hidden', '')
     } else {
       this.removeAttribute('hidden')
@@ -86,8 +95,15 @@ class DatetimeWebComponent extends HTMLElement {
 
   get _monthDayCells(): HTMLElement[] {
     return Array.from({ length: this._daysInMonth }, (_, idx) => idx + 1).map(
-      (number) =>
-        createCell(number.toString(), { isSelected: number === this._day })
+      (number) => {
+        const isSelected =
+          number === this._day &&
+          this._year === this._tempYear &&
+          this._monthIndex === this._tempMonthIndex
+        return createCell(number.toString(), {
+          isSelected,
+        })
+      }
     )
   }
 
@@ -104,6 +120,14 @@ class DatetimeWebComponent extends HTMLElement {
     return this._date!.getDate()
   }
 
+  get _monthIndex(): number {
+    return this._date!.getMonth()
+  }
+
+  get _year(): number {
+    return this._date!.getFullYear()
+  }
+
   _render() {
     clearChildren(this.shadowRoot!)
     this.shadowRoot!.appendChild(
@@ -117,7 +141,13 @@ class DatetimeWebComponent extends HTMLElement {
   }
 
   _setupValue() {
-    this._date = this.value ? new Date(this.value) : null
+    console.log('in setup', this.value)
+    if (this.value === null) {
+      this._date = new Date()
+    } else {
+      this._date = parseUTCDate(this.value)
+    }
+
     this._tempMonthIndex = this._date?.getMonth()
     this._tempYear = this._date?.getFullYear()
   }
@@ -135,12 +165,20 @@ class DatetimeWebComponent extends HTMLElement {
   }
 
   _emit() {
-    this.dispatchEvent(new DatetimeEvent(this._date!.toString(), this._date!))
+    this.dispatchEvent(
+      new DatetimeEvent(this._date!.toISOString(), this._date!)
+    )
   }
 
   _handleDay(event: CellEvent) {
     this._date?.setDate(event.day)
     this._emit()
+  }
+
+  _handleMonthYear(event: MonthYearEvent) {
+    this._tempYear = event.year
+    this._tempMonthIndex = event.monthIndex
+    this._render()
   }
 
   _handleRefClick() {
