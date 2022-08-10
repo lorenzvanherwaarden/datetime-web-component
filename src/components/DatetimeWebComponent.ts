@@ -141,7 +141,6 @@ class DatetimeWebComponent extends HTMLElement {
   }
 
   _setupValue() {
-    console.log('in setup', this.value)
     if (this.value === null) {
       this._date = new Date()
     } else {
