@@ -18,7 +18,7 @@ function createNumberInput(value: string, max: number) {
   input.type = 'number'
   input.min = '0'
   input.max = max.toString()
-  input.className = 'time-input'
+  input.className = 'input'
   input.value = value
 
   return input
@@ -83,8 +83,7 @@ function createTimeInput(
   { showSeconds = false }: TimeInputOptions
 ) {
   const container = document.createElement('div')
-  container.className = 'time-container'
-  container.id = 'time-container'
+  container.className = 'container container--time'
   container.appendChild(createHoursInput(date))
   container.appendChild(createSeparator())
   container.appendChild(createMinutesInput(date))

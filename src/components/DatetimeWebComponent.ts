@@ -9,8 +9,10 @@ import style from './style'
 import clearChildren from './utils/clearChildren'
 import createCell from './utils/createCell'
 import createHeader from './utils/createHeader'
+import createMonthCells from './utils/createMonthCells'
 import createTimeInput from './utils/createTimeInput'
 import createWeekdays from './utils/createWeekdays'
+import createYearView from './utils/createYearView'
 import getDayOfWeek from './utils/getDayOfWeek'
 import getDaysInMonth from './utils/getDaysInMonths'
 import getFirstDayOfMonth from './utils/getFirstDayOfMonth'
@@ -49,7 +51,10 @@ class DatetimeWebComponent extends HTMLElement {
     this._upgradeProperty('showSeconds')
 
     document.addEventListener('click', this._bindedHandleDocumentClick)
-    this.shadowRoot!.addEventListener('cell-event', this._handleDay.bind(this))
+    this.shadowRoot!.addEventListener(
+      'cell-event',
+      this._handleCellEvent.bind(this)
+    )
     this.shadowRoot!.addEventListener(
       'update-month-year',
       this._handleMonthYear.bind(this)
@@ -57,6 +62,14 @@ class DatetimeWebComponent extends HTMLElement {
     this.shadowRoot!.addEventListener(
       'update-time',
       this._handleTime.bind(this)
+    )
+    this.shadowRoot!.addEventListener(
+      'month-click',
+      this._renderMonthView.bind(this)
+    )
+    this.shadowRoot!.addEventListener(
+      'year-click',
+      this._renderYearView.bind(this)
     )
 
     this._setupValue()
@@ -154,18 +167,28 @@ class DatetimeWebComponent extends HTMLElement {
 
   // EVENT HANDLERS
 
-  _handleDay(event: CellEvent) {
-    this._date!.setDate(event.day)
-    this._date!.setFullYear(this._tempYear!)
+  _handleCellEvent(event: CellEvent) {
+    if (event.day !== undefined) {
+      this._date!.setDate(event.day)
+    }
+    if (event.month !== undefined) {
+      this._tempMonthIndex = event.month
+    }
     this._date!.setMonth(this._tempMonthIndex!)
+    this._date!.setFullYear(this._tempYear!)
     this._setValue(this._date!.toISOString())
     this._render()
     this._emit()
   }
 
   _handleMonthYear(event: MonthYearEvent) {
-    this._tempYear = event.year
-    this._tempMonthIndex = event.monthIndex
+    if (event.year) {
+      this._tempYear = event.year
+    }
+    if (event.monthIndex) {
+      this._tempMonthIndex = event.monthIndex
+    }
+
     this._render()
   }
 
@@ -215,6 +238,22 @@ class DatetimeWebComponent extends HTMLElement {
         createTimeInput(this._date!, { showSeconds: this.showSeconds })
       )
     }
+  }
+
+  _renderMonthView() {
+    clearChildren(this.shadowRoot!)
+    Months.map((month, index) =>
+      createMonthCells({
+        label: month,
+        monthIndex: index,
+        isSelected: index === this._tempMonthIndex,
+      })
+    ).forEach((cell) => this.shadowRoot!.appendChild(cell))
+  }
+
+  _renderYearView() {
+    clearChildren(this.shadowRoot!)
+    this.shadowRoot!.appendChild(createYearView(this._tempYear!))
   }
 
   _setupValue() {

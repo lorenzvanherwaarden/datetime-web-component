@@ -22,7 +22,7 @@ function createCell(
     cell.classList.add('cell--inactive')
   } else {
     cell.addEventListener('click', () => {
-      cell.dispatchEvent(new CellEvent(parseInt(label, 10)))
+      cell.dispatchEvent(new CellEvent({ day: parseInt(label, 10) }))
     })
     cell.tabIndex = 0
   }

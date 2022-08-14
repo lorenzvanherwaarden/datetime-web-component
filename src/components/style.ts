@@ -72,6 +72,10 @@ const css = `
   font-weight: 600;
 }
 
+.cell--month {
+  width: calc(100% / 2 - 2 * 2px);
+}
+
 .header {
   display: flex;
   align-items: center;
@@ -94,23 +98,35 @@ const css = `
   color: var(--focus-color);
 }
 
-.semantic-button--large {
+.semantic-button--icon {
+  font-family: system-ui;
   font-size: calc(var(--font-size) + 2px);
   padding: 4px 8px;
 }
 
-.time-container {
+.semantic-button--icon {
+  font-family: system-ui;
+}
+
+.container {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 12px;
 }
 
-.time-input {
+.container--time {
+  margin-top: 10px;
+}
+
+.container--year {
+  margin: 30px;
+}
+
+.input {
   color: var(--text-color);
-  font-family: var(--font-family);
   font-weight: var(--time-font-weight);
   font-size: var(--time-font-size);
+  font-family: var(--font-family);
   background: transparent;
   border: none;
   border-radius: var(--time-border-radius);
@@ -121,8 +137,12 @@ const css = `
   max-width: 40px;
 }
 
-.time-input:hover {
+.input:hover {
   background: var(--time-hover-background);
+}
+
+.input--year {
+  max-width: 60px;
 }
 
 .time-separator {

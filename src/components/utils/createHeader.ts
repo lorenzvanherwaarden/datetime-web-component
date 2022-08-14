@@ -1,16 +1,6 @@
 import Months from '../constants/Months'
 import MonthYearEvent from '../events/MonthYearEvent'
-
-function createSemanticButton(label: string, isLarge: boolean = false) {
-  const button = document.createElement('button')
-  button.className = 'semantic-button'
-  if (isLarge) {
-    button.classList.add('semantic-button--large')
-  }
-  button.textContent = label
-
-  return button
-}
+import createSemanticButton from './createSemanticButton'
 
 function createArrowButton(
   label: string,
@@ -19,7 +9,9 @@ function createArrowButton(
 ) {
   const button = createSemanticButton(label, true)
   button.addEventListener('click', () => {
-    button.dispatchEvent(new MonthYearEvent(newYear, newMonthIndex))
+    button.dispatchEvent(
+      new MonthYearEvent({ year: newYear, monthIndex: newMonthIndex })
+    )
   })
 
   return button
@@ -27,10 +19,16 @@ function createArrowButton(
 
 function createMonthYearSelector(year: number, month: string) {
   const div = document.createElement('div')
-  const monthEl = createSemanticButton(month)
-  const yearEl = createSemanticButton(year.toString())
-  div.appendChild(monthEl)
-  div.appendChild(yearEl)
+  const monthButton = createSemanticButton(month)
+  monthButton.addEventListener('click', () => {
+    monthButton.dispatchEvent(new Event('month-click', { bubbles: true }))
+  })
+  const yearButton = createSemanticButton(year.toString())
+  yearButton.addEventListener('click', () => {
+    yearButton.dispatchEvent(new Event('year-click', { bubbles: true }))
+  })
+  div.appendChild(monthButton)
+  div.appendChild(yearButton)
 
   return div
 }
