@@ -4,15 +4,18 @@ import Weekdays from './constants/Weekdays'
 import type CellEvent from './events/CellEvent'
 import DatetimeEvent from './events/DatetimeEvent'
 import MonthYearEvent from './events/MonthYearEvent'
+import TimeEvent from './events/TimeEvent'
 import style from './style'
 import clearChildren from './utils/clearChildren'
 import createCell from './utils/createCell'
 import createHeader from './utils/createHeader'
+import createTimeInput from './utils/createTimeInput'
 import createWeekdays from './utils/createWeekdays'
 import getDayOfWeek from './utils/getDayOfWeek'
 import getDaysInMonth from './utils/getDaysInMonths'
 import getFirstDayOfMonth from './utils/getFirstDayOfMonth'
 import parseUTCDate from './utils/parseUTCDate'
+import setTimeInputs from './utils/setTimeInputs'
 
 class DatetimeWebComponent extends HTMLElement {
   // Date representation of the value
@@ -30,6 +33,8 @@ class DatetimeWebComponent extends HTMLElement {
   // Function to handle document click, bound to this
   _bindedHandleDocumentClick = this._handleDocumentClick.bind(this)
 
+  // LIFECYCLE METHODS
+
   constructor() {
     super()
     this.attachShadow({ mode: 'open' })
@@ -40,6 +45,8 @@ class DatetimeWebComponent extends HTMLElement {
     this._upgradeProperty('value')
     this.hidden = true
     this._upgradeProperty('hidden')
+    this._upgradeProperty('onlyDate')
+    this._upgradeProperty('showSeconds')
 
     document.addEventListener('click', this._bindedHandleDocumentClick)
     this.shadowRoot!.addEventListener('cell-event', this._handleDay.bind(this))
@@ -47,18 +54,23 @@ class DatetimeWebComponent extends HTMLElement {
       'update-month-year',
       this._handleMonthYear.bind(this)
     )
+    this.shadowRoot!.addEventListener(
+      'update-time',
+      this._handleTime.bind(this)
+    )
 
     this._setupValue()
     this._render()
   }
 
+  // GETTERS & SETTERS
+
   set value(value: string | null) {
-    if (value) {
-      this.setAttribute('value', value)
-    } else {
-      this.removeAttribute('value')
+    if (value === this.getAttribute('value')) {
+      return
     }
 
+    this._setValue(value)
     this._setupValue()
     this._render()
   }
@@ -68,15 +80,27 @@ class DatetimeWebComponent extends HTMLElement {
   }
 
   set hidden(value: boolean) {
-    if (value) {
-      this.setAttribute('hidden', '')
-    } else {
-      this.removeAttribute('hidden')
-    }
+    this._setBooleanAttribute('hidden', value)
   }
 
   get hidden() {
     return this.hasAttribute('hidden')
+  }
+
+  set onlyDate(value: boolean) {
+    this._setBooleanAttribute('onlyDate', value)
+  }
+
+  get onlyDate() {
+    return this.hasAttribute('onlyDate')
+  }
+
+  set showSeconds(value: boolean) {
+    this._setBooleanAttribute('showSeconds', value)
+  }
+
+  get showSeconds() {
+    return this.hasAttribute('showSeconds')
   }
 
   set refElement(refElement: HTMLElement) {
@@ -128,6 +152,54 @@ class DatetimeWebComponent extends HTMLElement {
     return this._date!.getFullYear()
   }
 
+  // EVENT HANDLERS
+
+  _handleDay(event: CellEvent) {
+    this._date!.setDate(event.day)
+    this._date!.setFullYear(this._tempYear!)
+    this._date!.setMonth(this._tempMonthIndex!)
+    this._setValue(this._date!.toISOString())
+    this._render()
+    this._emit()
+  }
+
+  _handleMonthYear(event: MonthYearEvent) {
+    this._tempYear = event.year
+    this._tempMonthIndex = event.monthIndex
+    this._render()
+  }
+
+  _handleTime({ hours, minutes, seconds }: TimeEvent) {
+    this._date!.setHours(hours)
+    this._date!.setMinutes(minutes)
+    this._date!.setSeconds(seconds)
+    this._setValue(this._date!.toISOString())
+    if (hours === 24) {
+      this._render()
+    } else {
+      setTimeInputs(this.shadowRoot!, this._date!)
+    }
+    this._emit()
+  }
+
+  _handleRefClick() {
+    this.hidden = !this.hidden
+  }
+
+  _handleDocumentClick(event: MouseEvent) {
+    if (!(event.target instanceof Node)) {
+      return
+    }
+    if (event.target === this._refElement) {
+      return
+    }
+    if (!event.target || !this.contains(event.target)) {
+      this.hidden = true
+    }
+  }
+
+  // INTERNAL METHODS
+
   _render() {
     clearChildren(this.shadowRoot!)
     this.shadowRoot!.appendChild(
@@ -135,20 +207,21 @@ class DatetimeWebComponent extends HTMLElement {
     )
     this.shadowRoot!.appendChild(createWeekdays(Weekdays))
     for (let i = 0; i < this._offset; i++) {
-      this.shadowRoot!.appendChild(createCell(''))
+      this.shadowRoot!.appendChild(createCell('', { isInactive: true }))
     }
     this._monthDayCells.forEach((cell) => this.shadowRoot!.appendChild(cell))
+    if (!this.onlyDate) {
+      this.shadowRoot!.appendChild(
+        createTimeInput(this._date!, { showSeconds: this.showSeconds })
+      )
+    }
   }
 
   _setupValue() {
-    if (this.value === null) {
-      this._date = new Date()
-    } else {
-      this._date = parseUTCDate(this.value)
-    }
+    this._parseDate()
 
-    this._tempMonthIndex = this._date?.getMonth()
-    this._tempYear = this._date?.getFullYear()
+    this._tempMonthIndex = this._date!.getMonth()
+    this._tempYear = this._date!.getFullYear()
   }
 
   _position() {
@@ -169,30 +242,27 @@ class DatetimeWebComponent extends HTMLElement {
     )
   }
 
-  _handleDay(event: CellEvent) {
-    this._date?.setDate(event.day)
-    this._emit()
-  }
-
-  _handleMonthYear(event: MonthYearEvent) {
-    this._tempYear = event.year
-    this._tempMonthIndex = event.monthIndex
-    this._render()
-  }
-
-  _handleRefClick() {
-    this.hidden = !this.hidden
-  }
-
-  _handleDocumentClick(event: MouseEvent) {
-    if (!(event.target instanceof Node)) {
-      return
+  _setValue(value: string | null) {
+    if (value) {
+      this.setAttribute('value', value)
+    } else {
+      this.removeAttribute('value')
     }
-    if (event.target === this._refElement) {
-      return
+  }
+
+  _parseDate() {
+    if (this.value === null) {
+      this._date = new Date()
+    } else {
+      this._date = parseUTCDate(this.value)
     }
-    if (!event.target || !this.contains(event.target)) {
-      this.hidden = true
+  }
+
+  _setBooleanAttribute(attribute: string, value: boolean) {
+    if (value) {
+      this.setAttribute(attribute, '')
+    } else {
+      this.removeAttribute(attribute)
     }
   }
 
