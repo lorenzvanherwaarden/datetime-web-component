@@ -79,7 +79,6 @@ class DatetimeWebComponent extends HTMLElement {
     if (value === this.getAttribute('value')) {
       return
     }
-
     this._setValue(value)
     this._setupValue()
     this._render()
@@ -187,7 +186,6 @@ class DatetimeWebComponent extends HTMLElement {
     if (event.monthIndex) {
       this._tempMonthIndex = event.monthIndex
     }
-
     this._render()
   }
 
@@ -257,7 +255,6 @@ class DatetimeWebComponent extends HTMLElement {
 
   _setupValue() {
     this._parseDate()
-
     this._tempMonthIndex = this._date!.getMonth()
     this._tempYear = this._date!.getFullYear()
   }
