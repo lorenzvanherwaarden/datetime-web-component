@@ -32,9 +32,6 @@ class DatetimeWebComponent extends HTMLElement {
   // Reference element to position dropdown to
   _refElement?: HTMLElement
 
-  // Function to handle document click, bound to this
-  _bindedHandleDocumentClick = this._handleDocumentClick.bind(this)
-
   // LIFECYCLE METHODS
 
   constructor() {
@@ -50,7 +47,7 @@ class DatetimeWebComponent extends HTMLElement {
     this._upgradeProperty('onlyDate')
     this._upgradeProperty('showSeconds')
 
-    document.addEventListener('click', this._bindedHandleDocumentClick)
+    document.addEventListener('click', this._handleDocumentClick.bind(this))
     this.shadowRoot!.addEventListener(
       'cell-event',
       this._handleCellEvent.bind(this)
@@ -76,7 +73,7 @@ class DatetimeWebComponent extends HTMLElement {
     this._render()
   }
 
-  // GETTERS & SETTERS
+  // PUBLIC GETTERS & SETTERS
 
   set value(value: string | null) {
     if (value === this.getAttribute('value')) {
@@ -121,6 +118,8 @@ class DatetimeWebComponent extends HTMLElement {
     this._refElement.addEventListener('click', this._handleRefClick.bind(this))
     this._position()
   }
+
+  // PRIVATE GETTERS & SETTERS
 
   get _tempMonth(): string | null {
     return this._tempMonthIndex ? Months[this._tempMonthIndex] : null
