@@ -5,12 +5,36 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Datetime webcomponent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Karla:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <script type="module" src="/src/example.ts"></script>
     <style>
+      body {
+        margin: 30px;
+      }
+
       datetime-web-component {
-        --text-color: #333;
+        --text-color: #353535;
+        --font-family: 'Karla', sans-serif;
+        --font-size: 15px;
+        --background: #f6f6f6;
+        --box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.2);
+        --focus-color: #00aa44;
+        --selected-cell-background: #dde5dd;
+        --cell-width: 32px;
+        --cell-height: 32px;
+        --dropdown-border-color: transparent;
+        --dropdown-border-radius: 10px;
+        --cell-border-radius: 16px;
+        --input-font-size: 24px;
+        --input-font-weight: 700;
+        --input-border-radius: 6px;
       }
     </style>
     <input id="input" type="text" />

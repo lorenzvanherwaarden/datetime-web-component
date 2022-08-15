@@ -15,10 +15,10 @@ const css = `
   --dropdown-border-width: 1px;
   --dropdown-border-radius: 4px;
   --cell-border-radius: 6px;
-  --time-font-size: 18px;
-  --time-font-weight: 500;
-  --time-border-radius: 4px;
-  --time-hover-background: #eee;
+  --input-font-size: 18px;
+  --input-font-weight: 500;
+  --input-border-radius: 4px;
+  --input-hover-background: #eee;
 
   display: block;
   position: absolute;
@@ -124,30 +124,30 @@ const css = `
 
 .input {
   color: var(--text-color);
-  font-weight: var(--time-font-weight);
-  font-size: var(--time-font-size);
+  font-weight: var(--input-font-weight);
+  font-size: var(--input-font-size);
   font-family: var(--font-family);
   background: transparent;
   border: none;
-  border-radius: var(--time-border-radius);
+  border-radius: var(--input-border-radius);
   outline-color: var(--focus-color);
   line-height: 1;
   padding: 2px 0px 2px 2px;
   width: auto;
-  max-width: 40px;
+  max-width: 3ch;
 }
 
 .input:hover {
-  background: var(--time-hover-background);
+  background: var(--input-hover-background);
 }
 
 .input--year {
-  max-width: 60px;
+  max-width: 5ch;
 }
 
 .time-separator {
-  font-size: var(--time-font-size);
-  font-weight: var(--time-font-weight);
+  font-size: var(--input-font-size);
+  font-weight: var(--input-font-weight);
   margin: 0 4px;
 }
 `
