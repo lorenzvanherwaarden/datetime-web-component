@@ -7,32 +7,22 @@ const css = `
   --text-color: #222222;
   --muted-text-color: #777777;
   --focus-color: #0066FF;
-  --selected-cell-background: #E7E7E7;
-  --hover-cell-background: #EFEFEF;
   --cell-width: 28px;
   --cell-height: 26px;
+  --cell-border-radius: 6px;
+  --cell-vertical-margin: 4px;
+  --cell-horizontal-margin: 2px;
+  --selected-cell-background: #E7E7E7;
+  --selected-cell-font-weight: 700;
+  --hover-cell-background: #EFEFEF;
   --dropdown-border-color: #DDDDDD;
   --dropdown-border-width: 1px;
   --dropdown-border-radius: 4px;
   --dropdown-padding: 16px;
-  --cell-border-radius: 6px;
   --input-font-size: 18px;
   --input-font-weight: 500;
   --input-border-radius: 4px;
   --input-hover-background: #EEEEEE;
-
-  display: block;
-  position: absolute;
-  z-index: 100000;
-  width: calc(7 * var(--cell-width) + 2 * 7 * 2px);
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  color: var(--text-color);
-  background-color: var(--background);
-  border: solid var(--dropdown-border-width) var(--dropdown-border-color);
-  border-radius: var(--dropdown-border-radius);
-  box-shadow: var(--box-shadow); 
-  padding: var(--dropdown-padding);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -49,6 +39,21 @@ const css = `
   }
 }
 
+:host {
+  display: block;
+  position: absolute;
+  z-index: 100000;
+  width: calc(7 * var(--cell-width) + 2 * 7 * var(--cell-horizontal-margin));
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  color: var(--text-color);
+  background-color: var(--background);
+  border: solid var(--dropdown-border-width) var(--dropdown-border-color);
+  border-radius: var(--dropdown-border-radius);
+  box-shadow: var(--box-shadow); 
+  padding: var(--dropdown-padding);
+}
+
 :host([hidden]) {
   display: none;
 }
@@ -58,7 +63,7 @@ const css = `
   width: var(--cell-width);
   height: var(--cell-height);
   line-height: var(--cell-height);
-  margin: 4px 2px;
+  margin: var(--cell-vertical-margin) var(--cell-horizontal-margin);
   vertical-align: middle;
   text-align: center;
   user-select: none;
@@ -80,7 +85,7 @@ const css = `
 
 .cell--selected {
   background-color: var(--selected-cell-background);
-  font-weight: 600;
+  font-weight: var(--selected-cell-font-weight);
 }
 
 .cell--header {
@@ -88,7 +93,7 @@ const css = `
 }
 
 .cell--month {
-  width: calc(100% / 2 - 2 * 2px);
+  width: calc(100% / 2 - 2 * var(--cell-horizontal-margin));
 }
 
 .header {
