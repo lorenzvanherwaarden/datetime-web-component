@@ -11,6 +11,9 @@
     "type": "git",
     "url": "https://github.com/lorenzvanherwaarden/datetime-web-component.git"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
