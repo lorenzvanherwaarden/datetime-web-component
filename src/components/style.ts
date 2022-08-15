@@ -2,23 +2,24 @@ const css = `
 :host {
   --font-family: sans-serif;
   --font-size: 14px;
-  --background: #fafafa;
+  --background: #FAFAFA;
   --box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
   --text-color: #222222;
   --muted-text-color: #777777;
-  --focus-color: #0066ff;
-  --selected-cell-background: #e7e7e7;
-  --hover-cell-background: #efefef;
+  --focus-color: #0066FF;
+  --selected-cell-background: #E7E7E7;
+  --hover-cell-background: #EFEFEF;
   --cell-width: 28px;
   --cell-height: 26px;
-  --dropdown-border-color: #dddddd;
+  --dropdown-border-color: #DDDDDD;
   --dropdown-border-width: 1px;
   --dropdown-border-radius: 4px;
+  --dropdown-padding: 16px;
   --cell-border-radius: 6px;
   --input-font-size: 18px;
   --input-font-weight: 500;
   --input-border-radius: 4px;
-  --input-hover-background: #eee;
+  --input-hover-background: #EEEEEE;
 
   display: block;
   position: absolute;
@@ -27,11 +28,25 @@ const css = `
   font-family: var(--font-family);
   font-size: var(--font-size);
   color: var(--text-color);
-  background-color: var(---background);
+  background-color: var(--background);
   border: solid var(--dropdown-border-width) var(--dropdown-border-color);
   border-radius: var(--dropdown-border-radius);
   box-shadow: var(--box-shadow); 
-  padding: 16px;
+  padding: var(--dropdown-padding);
+}
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    --background: #333333;
+    --box-shadow: 0px 4px 16px rgba(20, 20, 20, 0.2);
+    --text-color: #FFFFFF;
+    --muted-text-color: #BBBBBB;
+    --focus-color: #4499FF;
+    --selected-cell-background: #555555;
+    --hover-cell-background: #444444;
+    --dropdown-border-color: #444444;
+    --input-hover-background: #444444;
+  }
 }
 
 :host([hidden]) {
@@ -134,7 +149,7 @@ const css = `
   line-height: 1;
   padding: 2px 0px 2px 2px;
   width: auto;
-  max-width: 3ch;
+  max-width: 4ch;
 }
 
 .input:hover {
@@ -142,7 +157,7 @@ const css = `
 }
 
 .input--year {
-  max-width: 5ch;
+  max-width: 6ch;
 }
 
 .time-separator {
