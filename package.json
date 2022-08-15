@@ -1,5 +1,5 @@
 {
-  "name": "@lorenzvanherwaarden/datetime-web-component",
+  "name": "datetime-web-component",
   "version": "0.1.0",
   "description": "Datetime picker web component",
   "homepage": "https://github.com/lorenzvanherwaarden/datetime-web-component",
@@ -10,9 +10,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/lorenzvanherwaarden/datetime-web-component.git"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
     "dev": "vite",
