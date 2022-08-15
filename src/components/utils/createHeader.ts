@@ -48,6 +48,7 @@ function createHeader(year: number, monthIndex: number) {
     isLastMonth ? year + 1 : year,
     isLastMonth ? 0 : monthIndex + 1
   )
+  console.log(isLastMonth)
   container.appendChild(leftButton)
   container.appendChild(createMonthYearSelector(year, Months[monthIndex]))
   container.appendChild(rightButton)

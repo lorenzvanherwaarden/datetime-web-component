@@ -180,10 +180,10 @@ class DatetimeWebComponent extends HTMLElement {
   }
 
   _handleMonthYear(event: MonthYearEvent) {
-    if (event.year) {
+    if (event.year !== undefined) {
       this._tempYear = event.year
     }
-    if (event.monthIndex) {
+    if (event.monthIndex !== undefined) {
       this._tempMonthIndex = event.monthIndex
     }
     this._render()
