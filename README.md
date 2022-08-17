@@ -5,7 +5,7 @@
 
 # Datetime web component
 
-Highly and easily styleable datetime picker web component.
+Lightweight and easily styleable datetime picker web component.
 
 ## Features
 
