@@ -97,19 +97,19 @@ class DatetimeWebComponent extends HTMLElement {
   }
 
   set onlyDate(value: boolean) {
-    this._setBooleanAttribute('onlyDate', value)
+    this._setBooleanAttribute('only-date', value)
   }
 
   get onlyDate() {
-    return this.hasAttribute('onlyDate')
+    return this.hasAttribute('only-date')
   }
 
   set showSeconds(value: boolean) {
-    this._setBooleanAttribute('showSeconds', value)
+    this._setBooleanAttribute('show-seconds', value)
   }
 
   get showSeconds() {
-    return this.hasAttribute('showSeconds')
+    return this.hasAttribute('show-seconds')
   }
 
   set refElement(refElement: HTMLElement) {

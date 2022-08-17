@@ -49,7 +49,7 @@ datetime-web-component {
 ### 3. Include component in html/template
 
 ```html
-<datetime-web-component value="2022-12-07T12:12:03.000Z" showseconds />
+<datetime-web-component value="2022-12-07T12:12:03.000Z" show-seconds />
 ```
 
 ## Styling
