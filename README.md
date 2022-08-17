@@ -9,16 +9,16 @@ Highly and easily styleable datetime picker web component.
 
 ## Features
 
-- Native web component which can be used anywhere and is framework agnostic
-- Style easily and extenstively by setting CSS custom properties
-- Lightweight. Depends on only 1 dependency [floating-ui/dom](https://www.npmjs.com/package/@floating-ui/dom) to position dropdown
+- Native web component which can be used anywhere; framework agnostic
+- Style easily and extensively by setting CSS custom properties
+- Lightweight; depends on only 1 dependency [floating-ui/dom](https://www.npmjs.com/package/@floating-ui/dom) to position dropdown
 - Very performant
 - Options to show/hide time and show/hide seconds
 - Supports dark mode
 
 ## Installation
 
-```
+```bash
 npm install --save datetime-web-component
 # yarn add datetime-web-component
 ```
@@ -27,7 +27,7 @@ npm install --save datetime-web-component
 
 ### 1. Import
 
-```
+```js
 import 'datetime-web-component'
 ```
 
