@@ -89,3 +89,14 @@ datetime-web-component {
   --input-hover-background: #eeeeee;
 }
 ```
+
+Dark mode styling can be done by using a media query
+
+```css
+@media (prefers-color-scheme: dark) {
+  datetime-web-component {
+    --text-color: #ffffff;
+    --background: #333333;
+  }
+}
+```
