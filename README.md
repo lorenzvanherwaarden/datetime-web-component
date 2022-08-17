@@ -61,7 +61,7 @@ datetime-web-component {
   --font-family: sans-serif;
   --font-size: 14px;
   --text-color: #222222;
-  --muted-text-color: #777777;‡
+  --muted-text-color: #777777;
   --focus-color: #0066ff;
 
   /* dropdown */
