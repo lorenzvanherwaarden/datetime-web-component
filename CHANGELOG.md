@@ -1,5 +1,12 @@
 
 
+### [0.1.4](https://github.com/lorenzvanherwaarden/datetime-web-component/compare/v0.1.3...v0.1.4) (2022-08-17)
+
+
+### Bug Fixes
+
+* use correct attribute naming ([f64cc6e](https://github.com/lorenzvanherwaarden/datetime-web-component/commit/f64cc6e82e757bba38f1391cacf14a01c368b4cf))
+
 ### [0.1.3](https://github.com/lorenzvanherwaarden/datetime-web-component/compare/v0.1.2...v0.1.3) (2022-08-15)
 
 ### [0.1.2](https://github.com/lorenzvanherwaarden/datetime-web-component/compare/v0.1.1...v0.1.2) (2022-08-15)
