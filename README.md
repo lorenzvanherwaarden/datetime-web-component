@@ -15,6 +15,7 @@ Highly and easily styleable datetime picker web component.
 - Very performant
 - Options to show/hide time and show/hide seconds
 - Supports dark mode
+- Subtle default styling
 
 ## Installation
 
@@ -33,7 +34,7 @@ import 'datetime-web-component'
 
 ### 2. Style (optional)
 
-Optionally style the datetime picker by defining CSS custom properties on the `datetime-web-component` tag:
+Optionally style the datetime picker by defining CSS custom properties on the `datetime-web-component` tag. The list of all available custom properties to style is [available below](#styling):
 
 ```css
 /* example styling */
@@ -49,4 +50,42 @@ datetime-web-component {
 
 ```html
 <datetime-web-component value="2022-12-07T12:12:03.000Z" showseconds />
+```
+
+## Styling
+
+You can style the datetime picker by overriding the CSS custom properties that are used in our css. These are all the exposed properties:
+
+```css
+datetime-web-component {
+  --font-family: sans-serif;
+  --font-size: 14px;
+  --text-color: #222222;
+  --muted-text-color: #777777;‡
+  --focus-color: #0066ff;
+
+  /* dropdown */
+  --background: #fafafa;
+  --box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
+  --border-color: #dddddd;
+  --border-width: 1px;
+  --border-radius: 4px;
+  --padding: 16px;
+
+  /* date cell */
+  --cell-width: 28px;
+  --cell-height: 26px;
+  --cell-border-radius: 6px;
+  --cell-vertical-margin: 4px;
+  --cell-horizontal-margin: 2px;
+  --selected-cell-background: #e7e7e7;
+  --selected-cell-font-weight: 700;
+  --hover-cell-background: #efefef;
+
+  /* time & year input */
+  --input-font-size: 18px;
+  --input-font-weight: 500;
+  --input-border-radius: 4px;
+  --input-hover-background: #eeeeee;
+}
 ```

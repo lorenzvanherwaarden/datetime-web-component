@@ -15,10 +15,10 @@ const css = `
   --selected-cell-background: #E7E7E7;
   --selected-cell-font-weight: 700;
   --hover-cell-background: #EFEFEF;
-  --dropdown-border-color: #DDDDDD;
-  --dropdown-border-width: 1px;
-  --dropdown-border-radius: 4px;
-  --dropdown-padding: 16px;
+  --border-color: #DDDDDD;
+  --border-width: 1px;
+  --border-radius: 4px;
+  --padding: 16px;
   --input-font-size: 18px;
   --input-font-weight: 500;
   --input-border-radius: 4px;
@@ -34,7 +34,7 @@ const css = `
     --focus-color: #4499FF;
     --selected-cell-background: #555555;
     --hover-cell-background: #444444;
-    --dropdown-border-color: #444444;
+    --border-color: #444444;
     --input-hover-background: #444444;
   }
 }
@@ -48,10 +48,10 @@ const css = `
   font-size: var(--font-size);
   color: var(--text-color);
   background-color: var(--background);
-  border: solid var(--dropdown-border-width) var(--dropdown-border-color);
-  border-radius: var(--dropdown-border-radius);
+  border: solid var(--border-width) var(--border-color);
+  border-radius: var(--border-radius);
   box-shadow: var(--box-shadow); 
-  padding: var(--dropdown-padding);
+  padding: var(--padding);
 }
 
 :host([hidden]) {
