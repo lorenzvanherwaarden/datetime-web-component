@@ -7,6 +7,14 @@
 
 Lightweight and easily styleable datetime picker web component.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="/public/default-style-dark.png?raw=true">
+  <source media="(prefers-color-scheme: light)" srcset="/public/default-style-light.png?raw=true">
+  <img alt="Shows default style" src="/public/default-style-light.png?raw=true" width="301">
+</picture>
+
+> Toggle dark mode on your system to see the ui in dark/light
+
 ## Features
 
 - Native web component which can be used anywhere; framework agnostic
@@ -16,8 +24,6 @@ Lightweight and easily styleable datetime picker web component.
 - Options to show/hide time and show/hide seconds
 - Supports dark mode
 - Subtle default styling
-
-![Default styling](/public/default-style.png?raw=true)
 
 ## Installation
 
