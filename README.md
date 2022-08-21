@@ -17,6 +17,8 @@ Lightweight and easily styleable datetime picker web component.
 - Supports dark mode
 - Subtle default styling
 
+![Default styling](/public/default-style.png?raw=true)
+
 ## Installation
 
 ```bash
