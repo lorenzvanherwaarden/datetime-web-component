@@ -90,7 +90,7 @@ All properties, except the `refElement` (which isn't a primitive type), are expo
 
 ### Events
 
-You can listen to changes by [adding an event listener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) with the type equal to `input` on the `<datetime-web-component />` element. The event contains a `value` property, which represents the new datetime in ISO 8601 format. This can be passed to the datetime-web-component directly as valid datetime. The event also contains a `date` property, which represents the `Date` representation of that new datetime. It is not necessary to feed the received `value` into the datetime-web-component again, as the internal value auto-updates when selecting a new datetime. 
+You can listen to changes by [adding an event listener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) with the type equal to `"input"` on the `<datetime-web-component />` element. The event contains a `value` property, which represents the new datetime in ISO 8601 format. This can be passed to the datetime-web-component directly as valid datetime. The event also contains a `date` property, which represents the `Date` representation of that new datetime. It is not necessary to feed the received `value` into the datetime-web-component again, as the internal value auto-updates when selecting a new datetime. It can be useful to update the input element's value with this event.
  
 ## Styling
 
