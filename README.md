@@ -59,6 +59,18 @@ datetime-web-component {
 <datetime-web-component value="2022-12-07T12:12:03.000Z" show-seconds />
 ```
 
+## API
+
+Following web component attribute & properties [best practices](https://web.dev/custom-elements-best-practices/#attributes-and-properties), the properties can be passed as actual properties or attributes.
+
+| prop  | type | attribute | description | default | required |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| `value`  | string \| null  | "value" | | `undefined` | ✕ |
+| `refElement`  | HTMLElement  | ✕ | | `undefined` | ✓ |
+| `hidden`  | boolean  | "hidden" | | `true` | ✕ |
+| `onlyDate`  | boolean  | "only-date" | | `false` | ✕ |
+| `showSeconds`  | boolean  | "show-seconds" | | `false` | ✕ |
+ 
 ## Styling
 
 You can style the datetime picker by overriding the CSS custom properties that are used in our css. These are all the exposed properties:
