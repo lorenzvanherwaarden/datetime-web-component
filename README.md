@@ -55,13 +55,14 @@ datetime-web-component {
 
 ### 3. Include component and listen to changes
 
-```js
+```html
 <template>
   <input id="input" type="text" value="2022-12-07T12:12:03.000Z" />
   <datetime-web-component id="datetime" value="2022-12-07T12:12:03.000Z" show-seconds />
 </template>
+```
 
-<script>
+```js
 const inputEl = document.getElementById('input')
 const datetimeEl = document.getElementById('datetime')
 
@@ -69,7 +70,6 @@ datetimeEl.refElement = inputEl
 datetimeEl.addEventListener('input', (event) => {
   inputEl.value = event.value
 })
-</script>
 ```
 
 ## API
