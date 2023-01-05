@@ -1,5 +1,7 @@
 
 
+### [0.1.6](https://github.com/lorenzvanherwaarden/datetime-web-component/compare/v0.1.5...v0.1.6) (2023-01-05)
+
 ### [0.1.5](https://github.com/lorenzvanherwaarden/datetime-web-component/compare/v0.1.4...v0.1.5) (2022-08-21)
 
 ### [0.1.4](https://github.com/lorenzvanherwaarden/datetime-web-component/compare/v0.1.3...v0.1.4) (2022-08-17)
