@@ -2,25 +2,34 @@ import CellEvent from '../events/CellEvent'
 
 type Options = {
   isSelected?: boolean
+  isBlocked?: boolean
   isHeader?: boolean
   isInactive?: boolean
 }
 
 function createCell(
   label: string,
-  { isSelected = false, isHeader = false, isInactive = false }: Options = {}
+  {
+    isSelected = false,
+    isBlocked = false,
+    isHeader = false,
+    isInactive = false,
+  }: Options = {}
 ) {
   const cell = document.createElement('div')
   cell.classList.add('cell')
   cell.textContent = label
 
-  if (isSelected) {
+  if (isBlocked) {
+    cell.classList.add('cell--blocked')
+  } else if (isSelected) {
     cell.classList.add('cell--selected')
   } else if (isHeader) {
     cell.classList.add('cell--header')
   } else if (isInactive) {
     cell.classList.add('cell--inactive')
   } else {
+    cell.classList.add('cell--default')
     cell.addEventListener('click', () => {
       cell.dispatchEvent(new CellEvent({ day: parseInt(label, 10) }))
     })

@@ -6,6 +6,7 @@ const css = `
   --box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
   --text-color: #222222;
   --muted-text-color: #777777;
+  --disabled-text-color: #AAAAAA;
   --focus-color: #0066FF;
   --cell-width: 28px;
   --cell-height: 26px;
@@ -31,6 +32,7 @@ const css = `
     --box-shadow: 0px 4px 16px rgba(20, 20, 20, 0.2);
     --text-color: #FFFFFF;
     --muted-text-color: #BBBBBB;
+    --disabled-text-color: #777777;
     --focus-color: #4499FF;
     --selected-cell-background: #555555;
     --hover-cell-background: #444444;
@@ -71,16 +73,21 @@ const css = `
   outline-color: var(--focus-color);
 }
 
-.cell:not(.cell--header):not(.cell--selected):not(.cell--inactive) {
+.cell--default {
   cursor: pointer;
 }
 
-.cell:not(.cell--header):not(.cell--selected):not(.cell--inactive):hover {
+.cell--default:hover {
   background-color: var(--hover-cell-background);
 }
 
-.cell:not(.cell--header):not(.cell--selected):not(.cell--inactive):active {
+.cell--default:active {
   color: var(--focus-color);
+}
+
+.cell--blocked {
+  color: var(--disabled-text-color);
+  cursor: not-allowed;
 }
 
 .cell--selected {

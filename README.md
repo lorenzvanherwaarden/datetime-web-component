@@ -106,6 +106,7 @@ datetime-web-component {
   --font-size: 14px;
   --text-color: #222222;
   --muted-text-color: #777777;
+  --disabled-text-color: #aaaaaa;
   --focus-color: #0066ff;
 
   /* dropdown */
@@ -149,6 +150,6 @@ Dark mode styling can be done by using a media query
 
 You can use the datetime-web-component from a CDN via a script tag without a build step:
 
-```
+```html
 <script src="https://unpkg.com/datetime-web-component@latest/dist/datetime-web-component.umd.js"></script>
 ```
