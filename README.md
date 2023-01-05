@@ -58,7 +58,11 @@ datetime-web-component {
 ```html
 <template>
   <input id="input" type="text" value="2022-12-07T12:12:03.000Z" />
-  <datetime-web-component id="datetime" value="2022-12-07T12:12:03.000Z" show-seconds />
+  <datetime-web-component
+    id="datetime"
+    value="2022-12-07T12:12:03.000Z"
+    show-seconds
+  />
 </template>
 ```
 
@@ -68,7 +72,7 @@ const datetimeEl = document.getElementById('datetime')
 
 // Set refElement to element you want the datetime popover to position relative to
 datetimeEl.refElement = inputEl
-// Listen to input event of the datetime-web-component for changes 
+// Listen to input event of the datetime-web-component for changes
 datetimeEl.addEventListener('input', (event) => {
   inputEl.value = event.value
 })
@@ -80,18 +84,18 @@ datetimeEl.addEventListener('input', (event) => {
 
 All properties, except the `refElement` (which isn't a primitive type), are exposed as property and attribute. This follows the web component attribute & properties [best practices](https://web.dev/custom-elements-best-practices/#attributes-and-properties).
 
-| prop  | type | attribute | description | default | required |
-| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| `value`  | string \| null  | "value" | String value of the date, like you would pass to the [Date constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date) and should conform to the ISO 8601 format (YYYY-MM-DDTHH:mm:ss.sssZ). If no value is given, the datetime will be set to the current date.   | `undefined` | ✕ |
-| `refElement`  | HTMLElement  | ✕ | HTMLElement where the datetime popover attaches to and is placed relative to. Most often, this would be your input element containing the date time value. | `undefined` | ✓ |
-| `hidden`  | boolean  | "hidden" | Whether the datetime popover is visible or not. This is `true` by default. When clicking on the `refElement`, this will become `false` (such that the popover is visible). By again clicking on the `refElement` or outside the popover, it will become `true` again. | `true` | ✕ |
-| `onlyDate`  | boolean  | "only-date" | Whether to hide the time picker. | `false` | ✕ |
-| `showSeconds`  | boolean  | "show-seconds" | Whether to show seconds in the time picker. This property has no effect when `onlyDate` is true. | `false` | ✕ |
+| prop          | type           | attribute      | description                                                                                                                                                                                                                                                                                                   | default     | required |
+| ------------- | -------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | -------- |
+| `value`       | string \| null | "value"        | String value of the date, like you would pass to the [Date constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date) and should conform to the ISO 8601 format (YYYY-MM-DDTHH:mm:ss.sssZ). If no value is given, the datetime will be set to the current date. | `undefined` | ✕        |
+| `refElement`  | HTMLElement    | ✕              | HTMLElement where the datetime popover attaches to and is placed relative to. Most often, this would be your input element containing the date time value.                                                                                                                                                    | `undefined` | ✓        |
+| `hidden`      | boolean        | "hidden"       | Whether the datetime popover is visible or not. This is `true` by default. When clicking on the `refElement`, this will become `false` (such that the popover is visible). By again clicking on the `refElement` or outside the popover, it will become `true` again.                                         | `true`      | ✕        |
+| `onlyDate`    | boolean        | "only-date"    | Whether to hide the time picker.                                                                                                                                                                                                                                                                              | `false`     | ✕        |
+| `showSeconds` | boolean        | "show-seconds" | Whether to show seconds in the time picker. This property has no effect when `onlyDate` is true.                                                                                                                                                                                                              | `false`     | ✕        |
 
 ### Events
 
 You can listen to changes by [adding an event listener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) with the type equal to `"input"` on the `<datetime-web-component />` element. The event contains a `value` property, which represents the new datetime in ISO 8601 format. This can be passed to the datetime-web-component directly as valid datetime. The event also contains a `date` property, which represents the `Date` representation of that new datetime. It is not necessary to feed the received `value` into the datetime-web-component again, as the internal value auto-updates when selecting a new datetime. It can be useful to update the input element's value with this event.
- 
+
 ## Styling
 
 You can style the datetime picker by overriding the CSS custom properties that are used in our css. These are all the exposed properties:
@@ -139,4 +143,12 @@ Dark mode styling can be done by using a media query
     --background: #333333;
   }
 }
+```
+
+## Using datetime-web-component from CDN
+
+You can use the datetime-web-component from a CDN via a script tag without a build step:
+
+```
+<script src="https://unpkg.com/datetime-web-component@latest/dist/datetime-web-component.umd.js"></script>
 ```
