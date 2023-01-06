@@ -32,6 +32,9 @@ class DatetimeWebComponent extends HTMLElement {
   // Reference element to position dropdown to
   _refElement?: HTMLElement
 
+  // Function to block specific days
+  _isDayBlocked = (_value: Date) => false
+
   // LIFECYCLE METHODS
 
   constructor() {
@@ -118,6 +121,11 @@ class DatetimeWebComponent extends HTMLElement {
     this._position()
   }
 
+  set isDayBlocked(isDayBlocked: (date: Date) => boolean) {
+    this._isDayBlocked = isDayBlocked
+    this._render()
+  }
+
   // PRIVATE GETTERS & SETTERS
 
   get _tempMonth(): string | null {
@@ -135,8 +143,16 @@ class DatetimeWebComponent extends HTMLElement {
           number === this._day &&
           this._year === this._tempYear &&
           this._monthIndex === this._tempMonthIndex
+        const isBlocked = this._isDayBlocked(
+          new Date(
+            this._tempYear || this._year,
+            this._tempMonthIndex || this._monthIndex,
+            number
+          )
+        )
         return createCell(number.toString(), {
           isSelected,
+          isBlocked,
         })
       }
     )
@@ -272,6 +288,9 @@ class DatetimeWebComponent extends HTMLElement {
   }
 
   _emit() {
+    if (this._isDayBlocked(this._date!)) {
+      return
+    }
     this.dispatchEvent(
       new DatetimeEvent(this._date!.toISOString(), this._date!)
     )
