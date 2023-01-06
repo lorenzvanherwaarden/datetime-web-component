@@ -1,6 +1,6 @@
 {
   "name": "datetime-web-component",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "Datetime picker web component",
   "homepage": "https://github.com/lorenzvanherwaarden/datetime-web-component",
   "files": [
