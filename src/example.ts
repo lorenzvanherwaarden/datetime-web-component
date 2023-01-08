@@ -18,4 +18,6 @@ datetimeWebComponent.addEventListener('input', (event: DatetimeEvent) => {
   console.log(event.value)
 })
 
-// datetimeWebComponent.value = '2021-01-05 12:43:23'
+datetimeWebComponent.isDayBlocked = (date: Date) => {
+  return date.getDay() === 2 || date.getDay() === 5
+}

@@ -1,5 +1,16 @@
 
 
+## [0.2.0](https://github.com/lorenzvanherwaarden/datetime-web-component/compare/v0.1.9...v0.2.0) (2023-01-06)
+
+
+### Features
+
+* allow to block certain dates ([#11](https://github.com/lorenzvanherwaarden/datetime-web-component/issues/11)) ([f4c98f4](https://github.com/lorenzvanherwaarden/datetime-web-component/commit/f4c98f468d3d3879c2068fe7657fa928d0e1c832))
+
+### [0.1.9](https://github.com/lorenzvanherwaarden/datetime-web-component/compare/v0.1.7...v0.1.9) (2023-01-05)
+
+### [0.1.7](https://github.com/lorenzvanherwaarden/datetime-web-component/compare/v0.1.6...v0.1.7) (2023-01-05)
+
 ### [0.1.6](https://github.com/lorenzvanherwaarden/datetime-web-component/compare/v0.1.5...v0.1.6) (2023-01-05)
 
 ### [0.1.5](https://github.com/lorenzvanherwaarden/datetime-web-component/compare/v0.1.4...v0.1.5) (2022-08-21)
