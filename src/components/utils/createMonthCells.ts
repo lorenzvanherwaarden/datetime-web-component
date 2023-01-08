@@ -13,6 +13,7 @@ function createMonthCells({ label, monthIndex, isSelected }: MonthCellOptions) {
     cell.classList.add('cell--selected')
   }
   cell.classList.add('cell--month')
+  cell.classList.add('cell--default')
   cell.textContent = label
   cell.addEventListener('click', () => {
     cell.dispatchEvent(new CellEvent({ month: monthIndex }))
