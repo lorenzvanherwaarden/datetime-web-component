@@ -3,6 +3,7 @@ import createSemanticButton from './createSemanticButton'
 
 function createYearInput(year: number) {
   const input = document.createElement('input')
+  input.dataset.testid = 'year-input'
   input.type = 'number'
   input.className = 'input input--year'
   input.min = '0'
@@ -16,7 +17,11 @@ function createYearView(year: number) {
   container.className = 'container container--year'
   const yearInput = createYearInput(year)
   yearInput.addEventListener('input', (event) => event.stopPropagation())
-  const okButton = createSemanticButton({ label: '✓', isIcon: true })
+  const okButton = createSemanticButton({
+    label: '✓',
+    isIcon: true,
+    dataTestid: 'confirm-year',
+  })
   okButton.addEventListener('click', () => {
     const newYear = yearInput.value
     yearInput.dispatchEvent(new MonthYearEvent({ year: parseInt(newYear, 10) }))

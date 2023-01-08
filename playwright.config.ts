@@ -1,5 +1,5 @@
-import type { PlaywrightTestConfig } from '@playwright/test';
-import { devices } from '@playwright/test';
+import type { PlaywrightTestConfig } from '@playwright/test'
+import { devices } from '@playwright/test'
 
 /**
  * Read environment variables from file.
@@ -19,7 +19,7 @@ const config: PlaywrightTestConfig = {
      * Maximum time expect() should wait for the condition to be met.
      * For example in `await expect(locator).toHaveText();`
      */
-    timeout: 5000
+    timeout: 5000,
   },
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -43,7 +43,7 @@ const config: PlaywrightTestConfig = {
 
     locale: 'nl-BE',
 
-    timezoneId: 'Europe/Brussels'
+    timezoneId: 'Europe/Brussels',
   },
 
   /* Configure projects for major browsers */
@@ -106,6 +106,6 @@ const config: PlaywrightTestConfig = {
     command: 'npm run dev',
     port: 5173,
   },
-};
+}
 
-export default config;
+export default config

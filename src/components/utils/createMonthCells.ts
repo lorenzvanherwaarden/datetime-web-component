@@ -8,6 +8,7 @@ type MonthCellOptions = {
 
 function createMonthCells({ label, monthIndex, isSelected }: MonthCellOptions) {
   const cell = document.createElement('div')
+  cell.dataset.testid = 'month-cell'
   cell.classList.add('cell')
   if (isSelected) {
     cell.classList.add('cell--selected')

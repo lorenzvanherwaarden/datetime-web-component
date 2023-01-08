@@ -31,7 +31,7 @@ function parseValueFromEvent(event: Event) {
 function createHoursInput(date: Date) {
   const input = createNumberInput(formatTime(date.getHours()), 24)
   input.id = 'hours'
-  input.setAttribute('data-testid', 'hours')
+  input.dataset.testid = 'hours'
   input.addEventListener('input', (event) => {
     input.dispatchEvent(
       new TimeEvent({
@@ -49,7 +49,7 @@ function createHoursInput(date: Date) {
 function createMinutesInput(date: Date) {
   const input = createNumberInput(formatTime(date.getMinutes()), 60)
   input.id = 'minutes'
-  input.setAttribute('data-testid', 'minutes')
+  input.dataset.testid = 'minutes'
   input.addEventListener('input', (event) => {
     input.dispatchEvent(
       new TimeEvent({
@@ -66,7 +66,7 @@ function createMinutesInput(date: Date) {
 function createSecondsInput(date: Date) {
   const input = createNumberInput(formatTime(date.getSeconds()), 60)
   input.id = 'seconds'
-  input.setAttribute('data-testid', 'seconds')
+  input.dataset.testid = 'seconds'
   input.addEventListener('input', (event) => {
     input.dispatchEvent(
       new TimeEvent({
@@ -86,7 +86,7 @@ function createTimeInput(
   { showSeconds = false }: TimeInputOptions
 ) {
   const container = document.createElement('div')
-  container.setAttribute('data-testid', 'time-container')
+  container.dataset.testid = 'time-container'
   container.className = 'container container--time'
   container.appendChild(createHoursInput(date))
   container.appendChild(createSeparator())
