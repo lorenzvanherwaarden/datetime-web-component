@@ -53,7 +53,7 @@ test('can toggle through months', async ({ page }) => {
   await expect(page.getByTestId('year')).toHaveText('2023')
 })
 
-test('correct days are blocked', async ({ page }) => {
+test('blocks the correct days', async ({ page }) => {
   const blockedDays = [2, 6, 9, 13, 16, 20, 23, 27, 30];
   await expect(page.getByTestId('blocked-cell').nth(0)).toHaveText(blockedDays[0].toString());
   await expect(page.getByTestId('blocked-cell').nth(1)).toHaveText(blockedDays[1].toString());
@@ -64,7 +64,6 @@ test('correct days are blocked', async ({ page }) => {
   await expect(page.getByTestId('blocked-cell').nth(6)).toHaveText(blockedDays[6].toString());
   await expect(page.getByTestId('blocked-cell').nth(7)).toHaveText(blockedDays[7].toString());
   await expect(page.getByTestId('blocked-cell').nth(8)).toHaveText(blockedDays[8].toString());
-
 
   const datetimeWebComponentHandle = await page.$('datetime-web-component');
   await page.evaluate(datetimeWebComponentHandle => { 

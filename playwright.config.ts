@@ -40,6 +40,10 @@ const config: PlaywrightTestConfig = {
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+
+    locale: 'nl-BE',
+
+    timezoneId: 'Europe/Brussels'
   },
 
   /* Configure projects for major browsers */
