@@ -2,12 +2,22 @@ import Months from '../constants/Months'
 import MonthYearEvent from '../events/MonthYearEvent'
 import createSemanticButton from './createSemanticButton'
 
-function createArrowButton(
-  label: string,
-  newYear: number,
+type CreateArrowButtonOptions = {
+  label: string
+  newYear: number
   newMonthIndex: number
+  dataTestid: string
+}
+
+function createArrowButton({
+  label,
+  newYear,
+  newMonthIndex,
+  dataTestid
+}: CreateArrowButtonOptions
 ) {
   const button = createSemanticButton({ label, isIcon: true })
+  button.setAttribute('data-testid', dataTestid)
   button.addEventListener('click', () => {
     button.dispatchEvent(
       new MonthYearEvent({ year: newYear, monthIndex: newMonthIndex })
@@ -38,16 +48,18 @@ function createHeader(year: number, monthIndex: number) {
   container.className = 'header'
   const isFirstMonth = monthIndex === 0
   const isLastMonth = monthIndex === 11
-  const leftButton = createArrowButton(
-    '←',
-    isFirstMonth ? year - 1 : year,
-    isFirstMonth ? 11 : monthIndex - 1
-  )
-  const rightButton = createArrowButton(
-    '→',
-    isLastMonth ? year + 1 : year,
-    isLastMonth ? 0 : monthIndex + 1
-  )
+  const leftButton = createArrowButton({
+    label: '←',
+    newYear: isFirstMonth ? year - 1 : year,
+    newMonthIndex: isFirstMonth ? 11 : monthIndex - 1,
+    dataTestid: 'previous-month'
+})
+  const rightButton = createArrowButton({
+    label: '→',
+    newYear: isLastMonth ? year + 1 : year,
+    newMonthIndex: isLastMonth ? 0 : monthIndex + 1,
+    dataTestid: 'next-month'
+  })
   container.appendChild(leftButton)
   container.appendChild(createMonthYearSelector(year, Months[monthIndex]))
   container.appendChild(rightButton)

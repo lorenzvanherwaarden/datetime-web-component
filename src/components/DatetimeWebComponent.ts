@@ -147,8 +147,8 @@ class DatetimeWebComponent extends HTMLElement {
           this._monthIndex === this._tempMonthIndex
         const isBlocked = this._isDayBlocked(
           new Date(
-            this._tempYear || this._year,
-            this._tempMonthIndex || this._monthIndex,
+            this._tempYear ?? this._year,
+            this._tempMonthIndex ?? this._monthIndex,
             number
           )
         )

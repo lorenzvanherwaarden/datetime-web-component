@@ -22,14 +22,16 @@ function createCell(
 
   if (isBlocked) {
     cell.classList.add('cell--blocked')
+    cell.setAttribute('data-testid', 'blocked-cell')
   } else if (isSelected) {
     cell.classList.add('cell--selected')
-    cell.setAttribute('data-testid', 'day');
+    cell.setAttribute('data-testid', 'selected-cell');
   } else if (isHeader) {
     cell.classList.add('cell--header')
     cell.setAttribute('data-testid', 'header-cell')
   } else if (isInactive) {
     cell.classList.add('cell--inactive')
+    cell.setAttribute('data-testid', 'inactive-cell')
   } else {
     cell.classList.add('cell--default')
     cell.addEventListener('click', () => {
