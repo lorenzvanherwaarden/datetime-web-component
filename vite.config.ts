@@ -12,4 +12,7 @@ export default defineConfig({
       output: {},
     },
   },
+  test: {
+    globals: true
+  }
 })
