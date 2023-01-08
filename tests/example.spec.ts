@@ -28,3 +28,13 @@ test('value is reflected correctly in datepicker', async ({ page }) => {
   await expect(page.getByTestId('minutes')).toHaveValue('12');
   await expect(page.getByTestId('seconds')).toHaveValue('03');
 });
+
+test('weekdays are correct', async ({ page }) => {
+  await expect(page.getByTestId('header-cell').nth(0)).toHaveText('Mo');
+  await expect(page.getByTestId('header-cell').nth(1)).toHaveText('Tu');
+  await expect(page.getByTestId('header-cell').nth(2)).toHaveText('We');
+  await expect(page.getByTestId('header-cell').nth(3)).toHaveText('Th');
+  await expect(page.getByTestId('header-cell').nth(4)).toHaveText('Fr');
+  await expect(page.getByTestId('header-cell').nth(5)).toHaveText('Sa');
+  await expect(page.getByTestId('header-cell').nth(6)).toHaveText('Su');
+})

@@ -27,6 +27,7 @@ function createCell(
     cell.setAttribute('data-testid', 'day');
   } else if (isHeader) {
     cell.classList.add('cell--header')
+    cell.setAttribute('data-testid', 'header-cell')
   } else if (isInactive) {
     cell.classList.add('cell--inactive')
   } else {
