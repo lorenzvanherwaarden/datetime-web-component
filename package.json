@@ -16,7 +16,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "format": "prettier --write .",
-    "release": "release-it --only-version"
+    "release": "release-it --only-version",
+    "test": "playwright test"
   },
   "type": "module",
   "module": "./dist/datetime-web-component.es.js",
@@ -30,6 +31,7 @@
     "@floating-ui/dom": "^1.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.29.2",
     "@release-it/conventional-changelog": "^5.0.0",
     "@typescript-eslint/eslint-plugin": "^5.48.0",
     "@typescript-eslint/parser": "^5.48.0",

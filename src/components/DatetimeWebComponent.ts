@@ -19,6 +19,8 @@ import getFirstDayOfMonth from './utils/getFirstDayOfMonth'
 import parseUTCDate from './utils/parseUTCDate'
 import setTimeInputs from './utils/setTimeInputs'
 
+type isDayBlockedFn = (value?: Date) => boolean
+
 class DatetimeWebComponent extends HTMLElement {
   // Date representation of the value
   _date?: Date
@@ -33,7 +35,7 @@ class DatetimeWebComponent extends HTMLElement {
   _refElement?: HTMLElement
 
   // Function to block specific days
-  _isDayBlocked = (_value: Date) => false
+  _isDayBlocked: isDayBlockedFn = () => false
 
   // LIFECYCLE METHODS
 
@@ -101,6 +103,7 @@ class DatetimeWebComponent extends HTMLElement {
 
   set onlyDate(value: boolean) {
     this._setBooleanAttribute('only-date', value)
+    this._render()
   }
 
   get onlyDate() {
@@ -109,6 +112,7 @@ class DatetimeWebComponent extends HTMLElement {
 
   set showSeconds(value: boolean) {
     this._setBooleanAttribute('show-seconds', value)
+    this._render()
   }
 
   get showSeconds() {
@@ -145,8 +149,8 @@ class DatetimeWebComponent extends HTMLElement {
           this._monthIndex === this._tempMonthIndex
         const isBlocked = this._isDayBlocked(
           new Date(
-            this._tempYear || this._year,
-            this._tempMonthIndex || this._monthIndex,
+            this._tempYear ?? this._year,
+            this._tempMonthIndex ?? this._monthIndex,
             number
           )
         )
