@@ -7,7 +7,7 @@ function createArrowButton(
   newYear: number,
   newMonthIndex: number
 ) {
-  const button = createSemanticButton(label, true)
+  const button = createSemanticButton({ label, isIcon: true })
   button.addEventListener('click', () => {
     button.dispatchEvent(
       new MonthYearEvent({ year: newYear, monthIndex: newMonthIndex })
@@ -19,11 +19,11 @@ function createArrowButton(
 
 function createMonthYearSelector(year: number, month: string) {
   const div = document.createElement('div')
-  const monthButton = createSemanticButton(month)
+  const monthButton = createSemanticButton({ label: month, dataTestid: 'month' })
   monthButton.addEventListener('click', () => {
     monthButton.dispatchEvent(new Event('month-click', { bubbles: true }))
   })
-  const yearButton = createSemanticButton(year.toString())
+  const yearButton = createSemanticButton({ label: year.toString(), dataTestid: 'year' })
   yearButton.addEventListener('click', () => {
     yearButton.dispatchEvent(new Event('year-click', { bubbles: true }))
   })

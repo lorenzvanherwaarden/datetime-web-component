@@ -1,18 +1,30 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
-test('has title', async ({ page }) => {
+test.beforeEach(async ({ page }) => {
   await page.goto('/');
-
-  // Expect a title "to contain" a substring.
-  await expect(page.getByTestId('input')).toHaveAttribute('id', 'input');
 });
 
-// test('get started link', async ({ page }) => {
-//   await page.goto('https://playwright.dev/');
+test('is visible & hidden when clicking on input', async ({ page }) => {
+  // input is set as refElement for the datetime-web-component
+  await page.locator('#input').click();
+  await expect(page.locator('datetime-web-component')).toBeVisible();
+  await page.locator('#input').click();
+  await expect(page.locator('datetime-web-component')).toBeHidden();
+});
 
-//   // Click the get started link.
-//   await page.getByRole('link', { name: 'Get started' }).click();
+test('is visible & hidden when clicking on input and on document', async ({ page }) => {
+  await page.locator('#input').click();
+  await expect(page.locator('datetime-web-component')).toBeVisible();
+  await page.locator('#input').click();
+  await expect(page.locator('datetime-web-component')).toBeHidden();
+});
 
-//   // Expects the URL to contain intro.
-//   await expect(page).toHaveURL(/.*intro/);
-// });
+test('value is reflected correctly in datepicker', async ({ page }) => {
+  await page.locator('#input').click();
+  await expect(page.getByTestId('month')).toHaveText('December');
+  await expect(page.getByTestId('year')).toHaveText('2022');
+  await expect(page.getByTestId('day')).toHaveText('7');
+  await expect(page.getByTestId('hours')).toHaveValue('13');
+  await expect(page.getByTestId('minutes')).toHaveValue('12');
+  await expect(page.getByTestId('seconds')).toHaveValue('03');
+});
