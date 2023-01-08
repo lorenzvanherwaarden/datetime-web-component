@@ -86,6 +86,7 @@ function createTimeInput(
   { showSeconds = false }: TimeInputOptions
 ) {
   const container = document.createElement('div')
+  container.setAttribute('data-testid', 'time-container')
   container.className = 'container container--time'
   container.appendChild(createHoursInput(date))
   container.appendChild(createSeparator())

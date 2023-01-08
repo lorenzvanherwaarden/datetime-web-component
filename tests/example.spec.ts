@@ -65,17 +65,36 @@ test('blocks the correct days', async ({ page }) => {
   await expect(page.getByTestId('blocked-cell').nth(7)).toHaveText(blockedDays[7].toString());
   await expect(page.getByTestId('blocked-cell').nth(8)).toHaveText(blockedDays[8].toString());
 
-  const datetimeWebComponentHandle = await page.$('datetime-web-component');
-  await page.evaluate(datetimeWebComponentHandle => { 
-    if (datetimeWebComponentHandle) {
-      (datetimeWebComponentHandle as DatetimeWebComponent).isDayBlocked = (value: Date) => {
+  const handle = await page.$('datetime-web-component');
+  if (handle) {
+    await handle.evaluate(handle => { 
+      (handle as DatetimeWebComponent).isDayBlocked = (value: Date) => {
         return value.getMonth() === 0
       }
-    }
-   
-  }, datetimeWebComponentHandle);
+    });
+  }
 
   await expect(page.getByTestId('blocked-cell')).toHaveCount(0);
   page.getByTestId('next-month').click();
   await expect(page.getByTestId('blocked-cell')).toHaveCount(31);
+})
+
+test('hides seconds if showSeconds is false', async ({page}) => {
+  const handle = await page.$('datetime-web-component');
+  if (handle) {
+    await handle.evaluate(handle => { 
+      (handle as DatetimeWebComponent).showSeconds = false
+    });
+  }
+  await expect(page.getByTestId('seconds')).toHaveCount(0);
+})
+
+test('hides time input if onlyDate is true', async ({page}) => {
+  const handle = await page.$('datetime-web-component');
+  if (handle) {
+    await handle.evaluate(handle => { 
+      (handle as DatetimeWebComponent).onlyDate = true
+    });
+  }
+  await expect(page.getByTestId('time-container')).toHaveCount(0);
 })

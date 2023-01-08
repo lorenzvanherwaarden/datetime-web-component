@@ -19,6 +19,8 @@ import getFirstDayOfMonth from './utils/getFirstDayOfMonth'
 import parseUTCDate from './utils/parseUTCDate'
 import setTimeInputs from './utils/setTimeInputs'
 
+type isDayBlockedFn = (value?: Date) => boolean
+
 class DatetimeWebComponent extends HTMLElement {
   // Date representation of the value
   _date?: Date
@@ -33,7 +35,7 @@ class DatetimeWebComponent extends HTMLElement {
   _refElement?: HTMLElement
 
   // Function to block specific days
-  _isDayBlocked = (_value: Date) => false
+  _isDayBlocked: isDayBlockedFn = () => false
 
   // LIFECYCLE METHODS
 
