@@ -155,7 +155,7 @@ test('increasing seconds to above 60 increments the minutes', async ({
   await expect(page.getByTestId('minutes')).toHaveValue('13')
 })
 
-test('selecting date updates the input', async ({ page }) => {
+test('selecting date updates the input value', async ({ page }) => {
   await page.getByTestId('next-month').click()
   await page.getByTestId('default-cell').nth(11).click()
   await page.getByTestId('hours').fill('5')
