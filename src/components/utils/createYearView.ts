@@ -16,7 +16,7 @@ function createYearView(year: number) {
   container.className = 'container container--year'
   const yearInput = createYearInput(year)
   yearInput.addEventListener('input', (event) => event.stopPropagation())
-  const okButton = createSemanticButton('✓', true)
+  const okButton = createSemanticButton({ label: '✓', isIcon: true })
   okButton.addEventListener('click', () => {
     const newYear = yearInput.value
     yearInput.dispatchEvent(new MonthYearEvent({ year: parseInt(newYear, 10) }))
