@@ -9,9 +9,9 @@ const css = `
   --disabled-text-color: #AAAAAA;
   --focus-color: #0066FF;
   --cell-width: 28px;
-  --cell-height: 26px;
+  --cell-height: 28px;
   --cell-border-radius: 6px;
-  --cell-vertical-margin: 4px;
+  --cell-vertical-margin: 2px;
   --cell-horizontal-margin: 2px;
   --selected-cell-background: #E7E7E7;
   --selected-cell-font-weight: 700;
@@ -108,6 +108,7 @@ const css = `
   align-items: center;
   justify-content: space-between;
   user-select: none;
+  margin-bottom: 6px;
 }
 
 .semantic-button {
@@ -127,7 +128,7 @@ const css = `
 
 .semantic-button--icon {
   font-family: system-ui;
-  font-size: calc(var(--font-size) + 2px);
+  font-size: calc(var(--font-size) + 4px);
   padding: 4px 8px;
 }
 

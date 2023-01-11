@@ -10,7 +10,7 @@ const input = document.getElementById('input') as HTMLInputElement
 input.value = datetimeWebComponent.value || ''
 
 // Set refElement
-datetimeWebComponent.refElement = input
+datetimeWebComponent.refId = 'input'
 
 datetimeWebComponent.addEventListener('input', (event: DatetimeEvent) => {
   datetimeWebComponent.value = event.value
