@@ -29,7 +29,9 @@
 
       methods: {
         isDayBlocked(date) {
-          return date.getDay() === 5
+          const min = new Date('2022-12-05T12:12:03.000Z')
+          const max = new Date('2022-12-21T12:12:03.000Z')
+          return date < min || date > max
         }
       },
     })
@@ -43,12 +45,12 @@
       --border-radius: 8px;
       --box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.1);
       --cell-border-radius: 14px;
+      --focus-color: rgb(66, 184, 131);
     }
 
     @media (prefers-color-scheme: dark) {
       datetime-web-component {
-        --text-color: #eee;
-        --background: #222;
+        --focus-color: rgb(66, 184, 131);
       }
     }
   </style>
