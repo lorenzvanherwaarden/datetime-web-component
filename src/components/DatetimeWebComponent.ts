@@ -330,8 +330,6 @@ class DatetimeWebComponent extends HTMLElement {
     }
   }
 
-  _
-
   _setBooleanAttribute(attribute: string, value: boolean) {
     if (value) {
       this.setAttribute(attribute, '')
