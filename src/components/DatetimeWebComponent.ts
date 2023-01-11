@@ -31,9 +31,6 @@ class DatetimeWebComponent extends HTMLElement {
   // Month of sliding window
   _tempMonthIndex?: number
 
-  // Reference element to position dropdown to
-  _refElement?: HTMLElement
-
   // Function to block specific days
   _isDayBlocked: isDayBlockedFn = () => false
 
@@ -46,11 +43,13 @@ class DatetimeWebComponent extends HTMLElement {
   }
 
   connectedCallback() {
-    this._upgradeProperty('value')
     this.hidden = true
+    this._upgradeProperty('value')
+    this._upgradeProperty('refId')
     this._upgradeProperty('hidden')
     this._upgradeProperty('onlyDate')
     this._upgradeProperty('showSeconds')
+    this._upgradeProperty('isDayBlocked')
 
     document.addEventListener('click', this._handleDocumentClick.bind(this))
     this.shadowRoot!.addEventListener(
@@ -73,6 +72,12 @@ class DatetimeWebComponent extends HTMLElement {
       'year-click',
       this._renderYearView.bind(this)
     )
+
+    const refElement = document.querySelector(`#${this.refId}`)
+    if (refElement) {
+      refElement.addEventListener('click', this._handleRefClick.bind(this))
+      this._position(refElement)
+    }
 
     this._setupValue()
     this._render()
@@ -119,15 +124,19 @@ class DatetimeWebComponent extends HTMLElement {
     return this.hasAttribute('show-seconds')
   }
 
-  set refElement(refElement: HTMLElement) {
-    this._refElement = refElement
-    this._refElement.addEventListener('click', this._handleRefClick.bind(this))
-    this._position()
+  set refId(value: string) {
+    this.setAttribute('ref-id', value)
+  }
+
+  get refId() {
+    return this.getAttribute('ref-id') || ''
   }
 
   set isDayBlocked(isDayBlocked: (date: Date) => boolean) {
     this._isDayBlocked = isDayBlocked
-    this._render()
+    if (this.isConnected) {
+      this._render()
+    }
   }
 
   // PRIVATE GETTERS & SETTERS
@@ -230,7 +239,7 @@ class DatetimeWebComponent extends HTMLElement {
     if (!(event.target instanceof Node)) {
       return
     }
-    if (event.target === this._refElement) {
+    if ((event.target as Element).id === this.refId) {
       return
     }
     if (!event.target || !this.contains(event.target)) {
@@ -279,8 +288,8 @@ class DatetimeWebComponent extends HTMLElement {
     this._tempYear = this._date!.getFullYear()
   }
 
-  _position() {
-    computePosition(this._refElement!, this, {
+  _position(refElement: Element) {
+    computePosition(refElement, this, {
       placement: 'bottom-start',
       middleware: [offset(4), shift()],
     }).then(({ x, y }) =>

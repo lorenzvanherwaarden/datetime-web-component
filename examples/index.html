@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>datetime-web-component Vue 3 example</title>
+</head>
+
+<body>
+  <script src="https://unpkg.com/datetime-web-component@latest/dist/datetime-web-component.umd.js"></script>
+
+  <div id="app">
+    <input :value="value" id="input" type="text" />
+    <datetime-web-component v-model="value" ref-id="input" show-seconds v-bind="{ isDayBlocked }" />
+  </div>
+
+  <script type="module">
+    import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+    const app = createApp({
+      data() {
+        return {
+          value: '2022-12-07T12:12:03.000Z',
+          show: false
+        }
+      },
+
+      methods: {
+        isDayBlocked(date) {
+          const min = new Date('2022-12-05T12:12:03.000Z')
+          const max = new Date('2022-12-21T12:12:03.000Z')
+          return date < min || date > max
+        }
+      },
+    })
+
+    app.config.compilerOptions.isCustomElement = (tag) => tag.includes('-')
+    app.mount('#app')
+  </script>
+
+  <style>
+    datetime-web-component {
+      --border-radius: 8px;
+      --box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.1);
+      --cell-border-radius: 14px;
+      --focus-color: rgb(66, 184, 131);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      datetime-web-component {
+        --focus-color: rgb(66, 184, 131);
+      }
+    }
+  </style>
+</body>
+
+</html>
