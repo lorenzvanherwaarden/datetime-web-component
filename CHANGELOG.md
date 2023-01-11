@@ -1,3 +1,17 @@
+
+
+## [0.3.0](https://github.com/lorenzvanherwaarden/datetime-web-component/compare/v0.2.0...v0.3.0) (2023-01-11)
+
+
+### Features
+
+* add vue example ([#14](https://github.com/lorenzvanherwaarden/datetime-web-component/issues/14)) ([792a410](https://github.com/lorenzvanherwaarden/datetime-web-component/commit/792a41074e54b4f283e7394aa47ea31de773fab4))
+
+
+### Bug Fixes
+
+* allow setting refId by property too ([#15](https://github.com/lorenzvanherwaarden/datetime-web-component/issues/15)) ([a180a9f](https://github.com/lorenzvanherwaarden/datetime-web-component/commit/a180a9f6c33a6555a8f5d284351009721670b638))
+
 ## [0.2.0](https://github.com/lorenzvanherwaarden/datetime-web-component/compare/v0.1.9...v0.2.0) (2023-01-06)
 
 ### Features
