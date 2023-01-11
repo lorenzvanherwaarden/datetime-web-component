@@ -73,12 +73,7 @@ class DatetimeWebComponent extends HTMLElement {
       this._renderYearView.bind(this)
     )
 
-    const refElement = document.querySelector(`#${this.refId}`)
-    if (refElement) {
-      refElement.addEventListener('click', this._handleRefClick.bind(this))
-      this._position(refElement)
-    }
-
+    this._position(this.refId)
     this._setupValue()
     this._render()
   }
@@ -126,6 +121,7 @@ class DatetimeWebComponent extends HTMLElement {
 
   set refId(value: string) {
     this.setAttribute('ref-id', value)
+    this._position(value)
   }
 
   get refId() {
@@ -288,7 +284,16 @@ class DatetimeWebComponent extends HTMLElement {
     this._tempYear = this._date!.getFullYear()
   }
 
-  _position(refElement: Element) {
+  _position(refId?: string) {
+    if (!refId) {
+      return
+    }
+    const refElement = document.querySelector(`#${refId}`)
+    if (!refElement) {
+      return
+    }
+    refElement.addEventListener('click', this._handleRefClick.bind(this))
+
     computePosition(refElement, this, {
       placement: 'bottom-start',
       middleware: [offset(4), shift()],
@@ -324,6 +329,8 @@ class DatetimeWebComponent extends HTMLElement {
       this._date = parseUTCDate(this.value)
     }
   }
+
+  _
 
   _setBooleanAttribute(attribute: string, value: boolean) {
     if (value) {
