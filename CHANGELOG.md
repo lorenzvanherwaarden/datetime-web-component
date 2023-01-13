@@ -1,5 +1,12 @@
 
 
+## [0.4.0](https://github.com/lorenzvanherwaarden/datetime-web-component/compare/v0.3.0...v0.4.0) (2023-01-13)
+
+
+### Features
+
+* pass input as slot ([#21](https://github.com/lorenzvanherwaarden/datetime-web-component/issues/21)) ([ca92619](https://github.com/lorenzvanherwaarden/datetime-web-component/commit/ca92619f44ab8e8e99934f9e8d41743aa8c8e950))
+
 ## [0.3.0](https://github.com/lorenzvanherwaarden/datetime-web-component/compare/v0.2.0...v0.3.0) (2023-01-11)
 
 
