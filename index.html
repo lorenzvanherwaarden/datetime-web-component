@@ -62,8 +62,10 @@
         --input-border-radius: 6px;
       } */
   </style>
-  <input id="input" type="text" data-testid="input" />
-  <datetime-web-component value="2022-12-07T12:12:03.000Z" ref-id="input" show-seconds />
+
+  <datetime-web-component value="2022-12-07T12:12:03.000Z" show-seconds>
+    <input slot="input" id="input" type="text" data-testid="input" />
+  </datetime-web-component>
 </body>
 
 </html>

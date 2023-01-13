@@ -34,46 +34,56 @@ class DatetimeWebComponent extends HTMLElement {
   // Function to block specific days
   _isDayBlocked: isDayBlockedFn = () => false
 
+  // Container for the dropdown
+  _dropdown: HTMLElement
+
+  // Input where the datetime-web-component is connected to
+  _input: HTMLElement
+
   // LIFECYCLE METHODS
 
   constructor() {
     super()
     this.attachShadow({ mode: 'open' })
-    this.shadowRoot!.appendChild(style)
+    this.shadowRoot?.appendChild(style)
+    this._input = document.createElement('slot')
+    this._input.setAttribute('name', 'input')
+    this.shadowRoot?.appendChild(this._input)
+    this._dropdown = document.createElement('div')
+    this._dropdown.className = 'dropdown'
+    this.shadowRoot?.appendChild(this._dropdown)
   }
 
   connectedCallback() {
-    this.hidden = true
+    this.isHidden = true
     this._upgradeProperty('value')
-    this._upgradeProperty('refId')
-    this._upgradeProperty('hidden')
     this._upgradeProperty('onlyDate')
     this._upgradeProperty('showSeconds')
     this._upgradeProperty('isDayBlocked')
 
     document.addEventListener('click', this._handleDocumentClick.bind(this))
-    this.shadowRoot!.addEventListener(
+    this.shadowRoot?.addEventListener(
       'cell-event',
       this._handleCellEvent.bind(this)
     )
-    this.shadowRoot!.addEventListener(
+    this.shadowRoot?.addEventListener(
       'update-month-year',
       this._handleMonthYear.bind(this)
     )
-    this.shadowRoot!.addEventListener(
+    this.shadowRoot?.addEventListener(
       'update-time',
       this._handleTime.bind(this)
     )
-    this.shadowRoot!.addEventListener(
+    this.shadowRoot?.addEventListener(
       'month-click',
       this._renderMonthView.bind(this)
     )
-    this.shadowRoot!.addEventListener(
+    this.shadowRoot?.addEventListener(
       'year-click',
       this._renderYearView.bind(this)
     )
 
-    this._position(this.refId)
+    this._position()
     this._setupValue()
     this._render()
   }
@@ -93,12 +103,12 @@ class DatetimeWebComponent extends HTMLElement {
     return this.getAttribute('value')
   }
 
-  set hidden(value: boolean) {
-    this._setBooleanAttribute('hidden', value)
+  set isHidden(value: boolean) {
+    this._setBooleanAttribute('is-hidden', value)
   }
 
-  get hidden() {
-    return this.hasAttribute('hidden')
+  get isHidden() {
+    return this.hasAttribute('is-hidden')
   }
 
   set onlyDate(value: boolean) {
@@ -117,15 +127,6 @@ class DatetimeWebComponent extends HTMLElement {
 
   get showSeconds() {
     return this.hasAttribute('show-seconds')
-  }
-
-  set refId(value: string) {
-    this.setAttribute('ref-id', value)
-    this._position(value)
-  }
-
-  get refId() {
-    return this.getAttribute('ref-id') || ''
   }
 
   set isDayBlocked(isDayBlocked: (date: Date) => boolean) {
@@ -228,54 +229,54 @@ class DatetimeWebComponent extends HTMLElement {
   }
 
   _handleRefClick() {
-    this.hidden = !this.hidden
+    this.isHidden = !this.isHidden
   }
 
   _handleDocumentClick(event: MouseEvent) {
     if (!(event.target instanceof Node)) {
       return
     }
-    if ((event.target as Element).id === this.refId) {
+    if ((event.target as Element) === this._input) {
       return
     }
     if (!event.target || !this.contains(event.target)) {
-      this.hidden = true
+      this.isHidden = true
     }
   }
 
   // INTERNAL METHODS
 
   _render() {
-    clearChildren(this.shadowRoot!)
-    this.shadowRoot!.appendChild(
+    clearChildren(this._dropdown)
+    this._dropdown.appendChild(
       createHeader(this._tempYear!, this._tempMonthIndex!)
     )
-    this.shadowRoot!.appendChild(createWeekdays(Weekdays))
+    this._dropdown.appendChild(createWeekdays(Weekdays))
     for (let i = 0; i < this._offset; i++) {
-      this.shadowRoot!.appendChild(createCell('', { isInactive: true }))
+      this._dropdown.appendChild(createCell('', { isInactive: true }))
     }
-    this._monthDayCells.forEach((cell) => this.shadowRoot!.appendChild(cell))
+    this._monthDayCells.forEach((cell) => this._dropdown.appendChild(cell))
     if (!this.onlyDate) {
-      this.shadowRoot!.appendChild(
+      this._dropdown.appendChild(
         createTimeInput(this._date!, { showSeconds: this.showSeconds })
       )
     }
   }
 
   _renderMonthView() {
-    clearChildren(this.shadowRoot!)
+    clearChildren(this._dropdown)
     Months.map((month, index) =>
       createMonthCells({
         label: month,
         monthIndex: index,
         isSelected: index === this._tempMonthIndex,
       })
-    ).forEach((cell) => this.shadowRoot!.appendChild(cell))
+    ).forEach((cell) => this._dropdown.appendChild(cell))
   }
 
   _renderYearView() {
-    clearChildren(this.shadowRoot!)
-    this.shadowRoot!.appendChild(createYearView(this._tempYear!))
+    clearChildren(this._dropdown)
+    this._dropdown.appendChild(createYearView(this._tempYear!))
   }
 
   _setupValue() {
@@ -284,17 +285,10 @@ class DatetimeWebComponent extends HTMLElement {
     this._tempYear = this._date!.getFullYear()
   }
 
-  _position(refId?: string) {
-    if (!refId) {
-      return
-    }
-    const refElement = document.querySelector(`#${refId}`)
-    if (!refElement) {
-      return
-    }
-    refElement.addEventListener('click', this._handleRefClick.bind(this))
+  _position() {
+    this._input.addEventListener('click', this._handleRefClick.bind(this))
 
-    computePosition(refElement, this, {
+    computePosition(this._input, this, {
       placement: 'bottom-start',
       middleware: [offset(4), shift()],
     }).then(({ x, y }) =>

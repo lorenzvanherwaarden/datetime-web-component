@@ -1,11 +1,11 @@
 /**
- * Clear all but the first child (which is the style tag) from a ShadowRoot
- * @param shadowRoot
+ * Clear all children from an HTMLElement
+ * @param {HTMLElement} element
  */
-function clearChildren(shadowRoot: ShadowRoot) {
-  while (shadowRoot.childNodes.length > 1) {
-    if (shadowRoot.lastChild) {
-      shadowRoot.removeChild(shadowRoot.lastChild)
+function clearChildren(element: HTMLElement) {
+  while (element.childNodes.length) {
+    if (element.lastChild) {
+      element.removeChild(element.lastChild)
     }
   }
 }
