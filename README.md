@@ -55,21 +55,19 @@ datetime-web-component {
 
 ```html
 <template>
-  <input id="input" type="text" value="2022-12-07T12:12:03.000Z" />
   <datetime-web-component
     id="datetime"
     value="2022-12-07T12:12:03.000Z"
     show-seconds
-  />
+  >
+    <input slot="input" type="text" value="2022-12-07T12:12:03.000Z" />
+  </datetime-web-component>
 </template>
 ```
 
 ```js
-const inputEl = document.getElementById('input')
 const datetimeEl = document.getElementById('datetime')
 
-// Set refElement to element you want the datetime popover to position relative to
-datetimeEl.refElement = inputEl
 // Listen to input event of the datetime-web-component for changes
 datetimeEl.addEventListener('input', (event) => {
   inputEl.value = event.value
@@ -85,8 +83,6 @@ All properties, except the `isDayBlocked` (which isn't a primitive type), are ex
 | prop           | type                    | attribute      | description                                                                                                                                                                                                                                                                                                   | default       | required |
 | -------------- | ----------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | -------- |
 | `value`        | string \| null          | "value"        | String value of the date, like you would pass to the [Date constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date) and should conform to the ISO 8601 format (YYYY-MM-DDTHH:mm:ss.sssZ). If no value is given, the datetime will be set to the current date. | `undefined`   | ✕        |
-| `refId`   | string             | "ref-id"              | Id of the element where the datetime popover attaches to and is placed relative to. Most often, this would be your input element containing the date time value.                                                                                                                                                    | `undefined`   | ✓        |
-| `hidden`       | boolean                 | "hidden"       | Whether the datetime popover is visible or not. This is `true` by default. When clicking on the `refElement`, this will become `false` (such that the popover is visible). By again clicking on the `refElement` or outside the popover, it will become `true` again.                                         | `true`        | ✕        |
 | `onlyDate`     | boolean                 | "only-date"    | Whether to hide the time picker.                                                                                                                                                                                                                                                                              | `false`       | ✕        |
 | `showSeconds`  | boolean                 | "show-seconds" | Whether to show seconds in the time picker. This property has no effect when `onlyDate` is true.                                                                                                                                                                                                              | `false`       | ✕        |
 | `isDayBlocked` | (date: Date) => boolean | ✕              | Days can be blocked by providing a function.                                                                                                                                                                                                                                                                  | `() => false` | ✕        |
