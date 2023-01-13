@@ -41,7 +41,7 @@ const css = `
   }
 }
 
-:host {
+:host .dropdown {
   display: block;
   position: absolute;
   z-index: 100000;
@@ -56,7 +56,7 @@ const css = `
   padding: var(--padding);
 }
 
-:host([hidden]) {
+:host([is-hidden]) .dropdown {
   display: none;
 }
 

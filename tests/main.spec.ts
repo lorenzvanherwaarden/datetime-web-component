@@ -8,17 +8,17 @@ test.beforeEach(async ({ page }) => {
 })
 
 test('is visible & hidden when clicking on input', async ({ page }) => {
-  await expect(page.locator('datetime-web-component')).toBeVisible()
+  await expect(page.getByTestId('dropdown')).toBeVisible()
   await page.getByTestId('input').click()
-  await expect(page.locator('datetime-web-component')).toBeHidden()
+  await expect(page.getByTestId('dropdown')).toBeHidden()
 })
 
 test('is visible & hidden when clicking on input and on document', async ({
   page,
 }) => {
-  await expect(page.locator('datetime-web-component')).toBeVisible()
-  await page.getByTestId('input').click()
-  await expect(page.locator('datetime-web-component')).toBeHidden()
+  await expect(page.getByTestId('dropdown')).toBeVisible()
+  await page.locator('body').click()
+  await expect(page.getByTestId('dropdown')).toBeHidden()
 })
 
 test('value is reflected correctly in datepicker', async ({ page }) => {

@@ -4,7 +4,6 @@ import replace from '@rollup/plugin-replace'
 
 export default defineConfig({
   build: {
-    minify: false,
     lib: {
       entry: path.resolve(__dirname, 'src/main.ts'),
       name: 'datetime-web-component',

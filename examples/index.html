@@ -10,9 +10,11 @@
 <body>
   <script src="https://unpkg.com/datetime-web-component@latest/dist/datetime-web-component.umd.js"></script>
 
+
   <div id="app">
-    <input :value="value" id="input" type="text" />
-    <datetime-web-component v-model="value" ref-id="input" show-seconds v-bind="{ isDayBlocked }" />
+    <datetime-web-component v-model="value" show-seconds v-bind="{ isDayBlocked }">
+      <input slot="input" :value="value" type="text" />
+    </datetime-web-component>
   </div>
 
   <script type="module">
