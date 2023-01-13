@@ -51,6 +51,7 @@ class DatetimeWebComponent extends HTMLElement {
     this.shadowRoot?.appendChild(this._input)
     this._dropdown = document.createElement('div')
     this._dropdown.className = 'dropdown'
+    this._dropdown.dataset.testid = 'dropdown'
     this.shadowRoot?.appendChild(this._dropdown)
   }
 
