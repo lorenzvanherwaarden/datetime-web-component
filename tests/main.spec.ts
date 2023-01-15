@@ -55,7 +55,7 @@ test('can toggle through months', async ({ page }) => {
   await expect(page.getByTestId('year')).toHaveText('2023')
 })
 
-test.only('can select month through tabbing', async ({ page, browserName }) => {
+test('can select month through tabbing', async ({ page, browserName }) => {
   await page.getByTestId('month').click()
   if (browserName === 'webkit') {
     await page.keyboard.press('Alt+Tab')
