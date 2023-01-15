@@ -7,12 +7,6 @@ test.beforeEach(async ({ page }) => {
   await page.getByTestId('input').click()
 })
 
-test('is visible & hidden when clicking on input', async ({ page }) => {
-  await expect(page.getByTestId('dropdown')).toBeVisible()
-  await page.getByTestId('input').click()
-  await expect(page.getByTestId('dropdown')).toBeHidden()
-})
-
 test('is visible & hidden when clicking on input and on document', async ({
   page,
 }) => {
