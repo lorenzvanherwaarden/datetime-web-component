@@ -49,6 +49,25 @@ test('can toggle through months', async ({ page }) => {
   await expect(page.getByTestId('year')).toHaveText('2023')
 })
 
+test('can select month through tabbing', async ({ page, browserName }) => {
+  await page.getByTestId('month').click()
+  if (browserName === 'webkit') {
+    await page.keyboard.press('Alt+Tab')
+    await page.keyboard.press('Alt+Tab')
+    await page.keyboard.press('Alt+Tab')
+  } else {
+    await page.keyboard.press('Tab')
+    await page.keyboard.press('Tab')
+    await page.keyboard.press('Tab')
+
+    if (browserName === 'firefox') {
+      await page.keyboard.press('Tab')
+    }
+  }
+  await page.keyboard.press('Enter')
+  await expect(page.getByTestId('month')).toHaveText('March')
+})
+
 test('blocks the correct days', async ({ page }) => {
   const blockedDays = [2, 6, 9, 13, 16, 20, 23, 27, 30]
   await expect(page.getByTestId('blocked-cell').nth(0)).toHaveText(

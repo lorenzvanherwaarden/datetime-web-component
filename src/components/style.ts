@@ -61,6 +61,12 @@ const css = `
 }
 
 .cell {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: auto;
   display: inline-block;
   width: var(--cell-width);
   height: var(--cell-height);
