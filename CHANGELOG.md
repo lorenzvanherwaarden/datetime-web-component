@@ -1,5 +1,13 @@
 
 
+## [0.5.0](https://github.com/lorenzvanherwaarden/datetime-web-component/compare/v0.4.0...v0.5.0) (2023-01-15)
+
+
+### Features
+
+* open datetime-web-component with focus ([#25](https://github.com/lorenzvanherwaarden/datetime-web-component/issues/25)) ([9e3d24a](https://github.com/lorenzvanherwaarden/datetime-web-component/commit/9e3d24a40bc7e8ccea194160a16aa86905f1fb51))
+* use buttons for clickable cells ([#26](https://github.com/lorenzvanherwaarden/datetime-web-component/issues/26)) ([875479e](https://github.com/lorenzvanherwaarden/datetime-web-component/commit/875479e4347db992db3254b08bdfd80c74a170db))
+
 ## [0.4.0](https://github.com/lorenzvanherwaarden/datetime-web-component/compare/v0.3.0...v0.4.0) (2023-01-13)
 
 
