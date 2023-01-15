@@ -7,7 +7,7 @@ type MonthCellOptions = {
 }
 
 function createMonthCells({ label, monthIndex, isSelected }: MonthCellOptions) {
-  const cell = document.createElement('div')
+  const cell = document.createElement('button')
   cell.dataset.testid = 'month-cell'
   cell.classList.add('cell')
   if (isSelected) {
@@ -19,7 +19,6 @@ function createMonthCells({ label, monthIndex, isSelected }: MonthCellOptions) {
   cell.addEventListener('click', () => {
     cell.dispatchEvent(new CellEvent({ month: monthIndex }))
   })
-  cell.tabIndex = 0
 
   return cell
 }
