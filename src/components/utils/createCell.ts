@@ -21,7 +21,7 @@ function createCell(
   if (isBlocked) {
     cell = document.createElement('button')
     cell.classList.add('cell--blocked')
-    cell.setAttribute('disabled', true)
+    cell.setAttribute('disabled', 'true')
     cell.dataset.testid = 'blocked-cell'
   } else if (isSelected) {
     cell = document.createElement('button')
