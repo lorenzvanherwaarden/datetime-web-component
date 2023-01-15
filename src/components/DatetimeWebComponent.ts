@@ -37,8 +37,10 @@ class DatetimeWebComponent extends HTMLElement {
   // Container for the dropdown
   _dropdown: HTMLElement
 
-  // Input where the datetime-web-component is connected to
-  _input: HTMLElement
+  // Slot for the input
+  _slot: HTMLSlotElement
+
+  _documentClickListener = this._handleDocumentClick.bind(this)
 
   // LIFECYCLE METHODS
 
@@ -46,9 +48,8 @@ class DatetimeWebComponent extends HTMLElement {
     super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot?.appendChild(style)
-    this._input = document.createElement('slot')
-    this._input.setAttribute('name', 'input')
-    this.shadowRoot?.appendChild(this._input)
+    this._slot = document.createElement('slot')
+    this.shadowRoot?.appendChild(this._slot)
     this._dropdown = document.createElement('div')
     this._dropdown.className = 'dropdown'
     this._dropdown.dataset.testid = 'dropdown'
@@ -62,7 +63,7 @@ class DatetimeWebComponent extends HTMLElement {
     this._upgradeProperty('showSeconds')
     this._upgradeProperty('isDayBlocked')
 
-    document.addEventListener('click', this._handleDocumentClick.bind(this))
+    document.addEventListener('click', this._documentClickListener)
     this.shadowRoot?.addEventListener(
       'cell-event',
       this._handleCellEvent.bind(this)
@@ -84,9 +85,13 @@ class DatetimeWebComponent extends HTMLElement {
       this._renderYearView.bind(this)
     )
 
-    this._position()
+    this._setupInputInteraction()
     this._setupValue()
     this._render()
+  }
+
+  disconnectedCallback() {
+    document.removeEventListener('click', this._documentClickListener)
   }
 
   // PUBLIC GETTERS & SETTERS
@@ -229,15 +234,19 @@ class DatetimeWebComponent extends HTMLElement {
     this._emit()
   }
 
-  _handleRefClick() {
+  _handleInputClick() {
     this.isHidden = !this.isHidden
+  }
+
+  _handleInputFocus() {
+    this.isHidden = false
   }
 
   _handleDocumentClick(event: MouseEvent) {
     if (!(event.target instanceof Node)) {
       return
     }
-    if ((event.target as Element) === this._input) {
+    if ((event.target as Element) === this._slot) {
       return
     }
     if (!event.target || !this.contains(event.target)) {
@@ -286,14 +295,15 @@ class DatetimeWebComponent extends HTMLElement {
     this._tempYear = this._date!.getFullYear()
   }
 
-  _position() {
-    this._input.addEventListener('click', this._handleRefClick.bind(this))
+  _setupInputInteraction() {
+    const [input] = this._slot.assignedElements()
+    input.addEventListener('focus', this._handleInputFocus.bind(this))
 
-    computePosition(this._input, this, {
+    computePosition(input, this, {
       placement: 'bottom-start',
       middleware: [offset(4), shift()],
     }).then(({ x, y }) =>
-      Object.assign(this.style, {
+      Object.assign(this._dropdown.style, {
         left: `${x}px`,
         top: `${y}px`,
       })
