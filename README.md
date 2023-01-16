@@ -1,4 +1,5 @@
 [![main](https://github.com/lorenzvanherwaarden/datetime-web-component/actions/workflows/main.yml/badge.svg)](https://github.com/lorenzvanherwaarden/datetime-web-component/actions/workflows/main.yml)
+[![tests](https://github.com/lorenzvanherwaarden/datetime-web-component/actions/workflows/playwright.yml/badge.svg)](https://github.com/lorenzvanherwaarden/datetime-web-component/actions/workflows/playwright.yml)
 ![latest release](https://badgen.net/github/release/lorenzvanherwaarden/datetime-web-component)
 ![typescript](https://badgen.net/badge/icon/typescript?icon=typescript&label)
 
